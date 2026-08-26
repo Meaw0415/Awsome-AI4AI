@@ -1,103 +1,177 @@
 # Awesome AI4AI
 
-A curated bibliography and survey scaffold for **AI for AI (AI4AI)**: AI systems that automate, accelerate, improve, evaluate, or recursively enhance the research and engineering process of artificial intelligence itself.
+A curated list of papers, benchmarks, surveys, and resources on **AI for AI (AI4AI)** — using AI to automate or improve the design, training, evaluation, engineering, and research of AI systems.
 
-> **Scope.** AutoML, hyperparameter/architecture/algorithm search, meta-learning and learned optimization, LLM-driven optimization and program discovery, autonomous ML engineering agents, AI research agents / AI scientists, AI-R&D benchmarks, and self-improving / world-model-based research systems.
+## Contents
 
-## The survey story
+- [Evolution of AI4AI](#evolution-of-ai4ai)
+- [1. AutoML & Hyperparameter Optimization](#1-automl--hyperparameter-optimization)
+- [2. Neural Architecture Search](#2-neural-architecture-search)
+- [3. Meta-Learning & Learned Optimization](#3-meta-learning--learned-optimization)
+- [4. Automated Algorithm & Program Discovery](#4-automated-algorithm--program-discovery)
+- [5. LLMs as Optimizers](#5-llms-as-optimizers)
+- [6. Autonomous ML Engineering Agents](#6-autonomous-ml-engineering-agents)
+- [7. AI Research Agents / AI Scientists](#7-ai-research-agents--ai-scientists)
+- [8. Self-Improving / Open-Ended AI4AI](#8-self-improving--open-ended-ai4ai)
+- [Benchmarks](benchmarks.md)
+- [Surveys](surveys.md)
+- [Full Paper Library](papers.md)
+- [Survey Writing Notes](writing.md)
 
-We organize AI4AI by **what part of the AI-development loop is automated** and by **what state/feedback the automation system reasons over**:
+## Evolution of AI4AI
 
-1. **Configuration automation** — algorithms, features, hyperparameters, pipelines.
-2. **Structure discovery** — architectures, programs, training rules, algorithms.
-3. **Learning to search** — meta-learning, learned optimizers, population-based adaptation.
-4. **Foundation-model-guided search** — LLMs propose prompts, rewards, code, algorithms, and experimental modifications.
-5. **Autonomous ML engineering** — agents edit code, run experiments, debug, inspect metrics, and iterate.
-6. **AI research agents / AI scientists** — literature, ideation, hypothesis formation, experimental design, execution, interpretation, writing, and review.
-7. **Self-improving AI4AI** — systems that improve their own search/agent machinery, evolve algorithms, accumulate reusable research experience, or learn models of research dynamics.
+```text
+Algorithm Selection / HPO
+        ↓
+AutoML / Pipeline Search
+        ↓
+Neural Architecture Search
+        ↓
+Meta-Learning / Learned Optimizers
+        ↓
+Automated Algorithm & Program Discovery
+        ↓
+LLM-based Optimization / Code Search
+        ↓
+Autonomous ML Engineering Agents
+        ↓
+AI Research Agents / AI Scientists
+        ↓
+Self-Improving / Open-Ended AI4AI
+```
 
-A useful historical transition is:
+The scope of automation has gradually expanded from selecting parameters inside a human-defined search space to modifying code, running experiments, proposing research ideas, and potentially improving the research process itself.
 
-> **Search over human-defined choices → search over programs → agentic experimentation → research-loop automation → learned research / epistemic dynamics.**
+---
 
-## Repository map
+## 1. AutoML & Hyperparameter Optimization
 
-- [`papers.md`](papers.md) — method paper library, grouped by subfield and year.
-- [`benchmarks.md`](benchmarks.md) — benchmark landscape from HPO/NAS to MLE-bench, RE-Bench and PaperBench.
-- [`surveys.md`](surveys.md) — surveys, tutorials, reviews and position papers by subfield.
-- [`survey_outline.md`](survey_outline.md) — proposed survey structure and narrative.
-- [`reading_priority.md`](reading_priority.md) — compact reading path through the field.
+Early AI4AI focuses on automating model selection, hyperparameter tuning, and complete ML pipelines.
 
-## Taxonomy
+- **2011** — [Algorithms for Hyper-Parameter Optimization](https://proceedings.neurips.cc/paper/2011/hash/86e8f7ab32cfd12577bc2619bc635690-Abstract.html) — TPE / modern HPO.
+- **2012** — [Random Search for Hyper-Parameter Optimization](https://jmlr.org/papers/v13/bergstra12a.html).
+- **2013** — [Auto-WEKA: Combined Selection and Hyperparameter Optimization of Classification Algorithms](https://arxiv.org/abs/1208.3719).
+- **2015** — [Efficient and Robust Automated Machine Learning](https://proceedings.neurips.cc/paper/2015/hash/11d0e6287202fced83f79975ec59a3a6-Abstract.html) — auto-sklearn.
+- **2016** — [TPOT: A Tree-based Pipeline Optimization Tool for Automating Machine Learning](https://proceedings.mlr.press/v64/olson_tpot_2016.html).
+- **2016** — [Hyperband](https://arxiv.org/abs/1603.06560).
+- **2017** — [BOHB](https://arxiv.org/abs/1807.01774).
+- **2017** — [Google Vizier](https://dl.acm.org/doi/10.1145/3097983.3098043).
+- **2020** — [AutoGluon-Tabular](https://arxiv.org/abs/2003.06505).
+- **2020** — [Auto-Sklearn 2.0](https://arxiv.org/abs/2007.04074).
+- **2021** — [FLAML](https://arxiv.org/abs/1911.04706).
 
-### A. Foundations: AutoML, HPO, algorithm selection, pipelines
-The first generation of AI4AI automates choices inside a mostly human-designed search space.
+More: [`papers.md`](papers.md)
 
-### B. Neural Architecture Search & Algorithm Discovery
-Automation moves from tuning parameters to creating structures, programs, optimizers, and learning algorithms.
+## 2. Neural Architecture Search
 
-### C. Meta-Learning & Learned Optimization
-Experience across tasks changes the optimizer/search procedure itself.
+Automation moves from choosing hyperparameters to designing neural structures.
 
-### D. LLMs as Optimizers, Program Synthesizers & Design Operators
-Foundation models make the candidate space much more open-ended: natural language, code, reward functions, algorithms, and hypotheses.
+- **2016/2017** — [Neural Architecture Search with Reinforcement Learning](https://arxiv.org/abs/1611.01578).
+- **2017** — [Designing Neural Network Architectures using Reinforcement Learning](https://arxiv.org/abs/1611.02167).
+- **2017** — [Large-Scale Evolution of Image Classifiers](https://arxiv.org/abs/1703.01041).
+- **2017** — [NASNet](https://arxiv.org/abs/1707.07012).
+- **2018** — [ENAS](https://arxiv.org/abs/1802.03268).
+- **2018** — [DARTS](https://arxiv.org/abs/1806.09055).
+- **2018** — [ProxylessNAS](https://arxiv.org/abs/1812.00332).
+- **2019** — [MnasNet](https://arxiv.org/abs/1807.11626).
+- **2019** — [Once-for-All](https://arxiv.org/abs/1908.09791).
+- **2020** — [NAS-Bench-201](https://arxiv.org/abs/2001.00326).
 
-### E. Autonomous ML Engineering Agents
-Agents interact with repositories, data, compute, logs, and metrics to perform long-horizon iterative ML engineering.
+## 3. Meta-Learning & Learned Optimization
 
-### F. AI Research Agents / AI Scientists
-Automation expands from engineering to literature grounding, ideation, experimental design, interpretation, and scientific communication.
+The optimizer/search procedure itself begins to learn from prior tasks and optimization trajectories.
 
-### G. Benchmarks & Evaluation for AI R&D
-Evaluation evolves from a scalar validation metric to long-horizon engineering, paper reproduction, novelty, scientific correctness, and research progress.
+- **2016** — [Learning to Learn by Gradient Descent by Gradient Descent](https://arxiv.org/abs/1606.04474).
+- **2017** — [MAML](https://arxiv.org/abs/1703.03400).
+- **2017** — [Population Based Training of Neural Networks](https://arxiv.org/abs/1711.09846).
+- **2018** — [Reptile](https://arxiv.org/abs/1803.02999).
+- **2020** — [Meta-Learning in Neural Networks: A Survey](https://arxiv.org/abs/2004.05439).
+- **2022** — [VeLO: Training Versatile Learned Optimizers by Scaling Up](https://arxiv.org/abs/2211.09760).
 
-### H. Self-Improving / Open-Ended / World-Model-Based AI4AI
-Systems improve their own search or agent machinery, maintain evolving populations/archives, learn from research trajectories, or model how actions and evidence change future research state.
+## 4. Automated Algorithm & Program Discovery
 
-## A second taxonomy: what drives the next action?
+Search expands beyond architectures toward executable learning rules, programs, heuristics, and algorithms.
 
-| Paradigm | State | Feedback | Typical next-action mechanism |
-|---|---|---|---|
-| Classical AutoML | configuration | validation metric | Bayesian/evolutionary/bandit search |
-| NAS / program search | architecture/program | execution + score | RL/evolution/gradient/search |
-| LLM optimizer | text/code candidate + history | evaluator/reward | prompted proposal/refinement |
-| ML engineering agent | repository + experiment history | logs + metric | planner/reasoner + tools |
-| Evolutionary coding agent | population/archive of programs | evaluator fitness | selection + LLM mutation/crossover |
-| Research agent | literature + hypotheses + experiments | evidence + reviewer/metric signals | planning + tool use + memory |
-| Research world model (emerging) | artifact state + epistemic state | evidence + predicted information/value | learned transition/value model |
+- **2018** — [Neural Optimizer Search with Reinforcement Learning](https://arxiv.org/abs/1709.07417).
+- **2019** — [AutoAugment](https://arxiv.org/abs/1805.09501).
+- **2020** — [AutoML-Zero: Evolving Machine Learning Algorithms From Scratch](https://arxiv.org/abs/2003.03384).
+- **2023** — [FunSearch: Mathematical Discoveries from Program Search with Large Language Models](https://www.nature.com/articles/s41586-023-06924-6).
+- **2025** — [AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery](https://arxiv.org/abs/2506.13131).
 
-## Key survey questions
+## 5. LLMs as Optimizers
 
-1. **What is being automated?** Hyperparameters, architectures, code, experiments, hypotheses, evidence updates, or the whole research loop?
-2. **What is the search state?** Configuration, program, codebase, experiment history, research hypothesis, or internal belief/world model?
-3. **What provides feedback?** Validation score, reward, execution result, benchmark score, reviewer feedback, evidence, or a learned model?
-4. **How is experience reused?** Warm starts, meta-learning, memory, retrieval, trajectory archives, evolutionary populations, learned dynamics, or self-modification?
-5. **How open-ended is the task?** Fixed search space → open code space → open research problem space.
-6. **How strong is human scaffolding?** Hard-coded pipeline → configurable harness → adaptive/self-authored/self-improving harness.
-7. **What counts as success?** Final metric, efficiency, novelty, reproducibility, scientific validity, information gain, or long-horizon research progress?
+Foundation models become proposal operators that optimize prompts, code, reward functions, and algorithms.
 
-## Proposed survey thesis
+- **2022** — [Large Language Models Are Human-Level Prompt Engineers](https://arxiv.org/abs/2211.01910) — APE.
+- **2023** — [Large Language Models as Optimizers](https://arxiv.org/abs/2309.03409) — OPRO.
+- **2023** — [Promptbreeder](https://arxiv.org/abs/2309.16797).
+- **2023** — [Eureka: Human-Level Reward Design via Coding Large Language Models](https://arxiv.org/abs/2310.12931).
+- **2024** — [TextGrad: Automatic Differentiation via Text](https://arxiv.org/abs/2406.07496).
+- **2024** — [DSPy](https://arxiv.org/abs/2310.03714).
+- **2025** — [AlphaEvolve](https://arxiv.org/abs/2506.13131).
 
-A central change in AI4AI is the transition in both **state representation** and **feedback**:
+## 6. Autonomous ML Engineering Agents
 
-> **hyperparameter state + scalar score**  
-> → **program/code state + execution feedback**  
-> → **research state + experimental evidence**  
-> → potentially **artifact + epistemic state + learned information/value dynamics**.
+Agents now interact with actual codebases, datasets, terminals, experiment logs, and evaluation metrics.
 
-This motivates a useful **dual-space view** for future AI-research agents:
+- **2023** — [MLAgentBench: Evaluating Language Agents on Machine Learning Experimentation](https://arxiv.org/abs/2310.03302).
+- **2024** — [MLE-bench: Evaluating Machine Learning Agents on Machine Learning Engineering](https://arxiv.org/abs/2410.07095).
+- **2024** — [AIDE: AI-Driven Exploration in the Space of Code](https://github.com/WecoAI/aideml).
+- **2024/2025** — [RE-Bench: Evaluating Frontier AI R&D Capabilities of Language Model Agents against Human Experts](https://arxiv.org/abs/2411.15114).
 
-- **Artifact space:** code, models, datasets, experiment configurations, outputs, metrics.
-- **Epistemic space:** hypotheses, uncertainty, causal beliefs, evidence, unresolved questions, confidence.
+See also: [`benchmarks.md`](benchmarks.md)
 
-The next experiment should not only be selected for immediate metric gain; it can also be selected because it is expected to change the epistemic state in a way that improves future research decisions.
+## 7. AI Research Agents / AI Scientists
 
-## Candidate survey titles
+Automation extends from engineering tasks to research ideation, literature use, experimentation, interpretation, and paper generation.
 
-- **AI4AI: From Automated Machine Learning to Autonomous and Self-Improving AI Research Agents**
-- **From AutoML to AI Scientists: A Survey of AI for Automating AI Research and Development**
-- **On the Road to AI4AI: Search, Agents, and Self-Improving Research Systems**
+- **2024** — [ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models](https://arxiv.org/abs/2404.07738).
+- **2024** — [The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery](https://arxiv.org/abs/2408.06292).
+- **2025** — [Agent Laboratory: Using LLM Agents as Research Assistants](https://arxiv.org/abs/2501.04227).
+- **2025** — [Towards an AI Co-Scientist](https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/).
+- **2025** — [PaperBench: Evaluating AI's Ability to Replicate AI Research](https://openai.com/index/paperbench/).
 
-## Status
+## 8. Self-Improving / Open-Ended AI4AI
 
-Living bibliography. The goal is not to enumerate every application-specific AutoML paper, but to capture the conceptual path from **optimization over a fixed space** to **autonomous, open-ended and potentially self-improving AI R&D**.
+The newest line studies systems that accumulate skills, evolve solutions, modify their own agent machinery, or improve components used by later iterations.
+
+- **2017** — [Population Based Training](https://arxiv.org/abs/1711.09846).
+- **2019** — [POET](https://arxiv.org/abs/1901.01753).
+- **2021** — [Open-Ended Learning Leads to Generally Capable Agents](https://arxiv.org/abs/2107.12808).
+- **2023** — [Voyager](https://arxiv.org/abs/2305.16291).
+- **2023** — [Promptbreeder](https://arxiv.org/abs/2309.16797).
+- **2023** — [FunSearch](https://www.nature.com/articles/s41586-023-06924-6).
+- **2025** — [Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents](https://arxiv.org/abs/2505.22954).
+- **2025** — [AlphaEvolve](https://arxiv.org/abs/2506.13131).
+
+---
+
+## Benchmarks
+
+See [`benchmarks.md`](benchmarks.md) for:
+
+- HPOBench / YAHPO Gym / AMLB
+- NAS-Bench-101 / 201 / 301 / NATS-Bench
+- MLAgentBench
+- MLE-bench
+- RE-Bench
+- PaperBench
+- related software-engineering benchmarks
+
+## Surveys
+
+See [`surveys.md`](surveys.md) for surveys on:
+
+- AutoML
+- HPO / Bayesian optimization
+- NAS
+- meta-learning
+- program synthesis / automated algorithm design
+- LLM optimizers
+- autonomous research agents / AI Scientists
+- self-improving agents
+- AI for Science / agentic science
+
+## Contributing
+
+This is a living list. New papers, benchmarks, surveys, and corrections are welcome.
