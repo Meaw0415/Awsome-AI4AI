@@ -1,103 +1,100 @@
-# AI4AI Benchmarks
+# Agent4AI Benchmarks
 
-This page collects benchmarks that evaluate the different layers of AI4AI: hyperparameter/architecture search, AutoML systems, optimization agents, ML engineering agents, AI-R&D agents, and research replication.
+This page focuses on benchmarks for **AI agents that improve AI**. Classical HPO/NAS benchmarks are historical background and are kept separately in [`../foundations/papers.md`](../foundations/papers.md).
 
-## 1. Hyperparameter Optimization / AutoML
+## 1. ML Engineering & Model Building
 
-- **HPOBench** (2021) — A Collection of Reproducible Multi-Fidelity Benchmark Problems for HPO. Benchmark collection for HPO algorithms. https://arxiv.org/abs/2109.06716
-- **YAHPO Gym** (2021/2022) — An Efficient Multi-Objective Multi-Fidelity Benchmark for Hyperparameter Optimization. 700+ surrogate HPO problems. https://arxiv.org/abs/2109.03670
-- **AMLB: an AutoML Benchmark** (2022) — Benchmark of end-to-end AutoML frameworks across classification and regression tasks. https://arxiv.org/abs/2207.12560
-- **OpenML Benchmarking Suites** (2021) — Standardized reusable ML benchmark suites including OpenML-CC18. https://openreview.net/forum?id=OCrD8ycKjG
-- **AutoML Benchmark** (2019) — Early systematic framework for benchmarking AutoML systems. https://www.automl.org/wp-content/uploads/2019/06/automlws2019_Paper45.pdf
+| Benchmark | Year | What it tests |
+|---|:---:|---|
+| [MLAgentBench](https://arxiv.org/abs/2310.03302) | 2023/24 | iterative ML experimentation |
+| [MLE-bench](https://arxiv.org/abs/2410.07095) | 2024 | end-to-end Kaggle-style ML engineering across 75 competitions |
+| [RE-Bench](https://arxiv.org/abs/2411.15114) | 2024/25 | long-horizon frontier AI R&D under substantial time budgets |
+| [MLE-Dojo](https://arxiv.org/abs/2505.07782) | 2025 | executable environments for training/evaluating MLE agents |
+| [MLS-Bench](https://arxiv.org/abs/2605.08678) | 2026 | whether proposed ML improvements generalize across settings and scales |
 
-## 2. Neural Architecture Search Benchmarks
+## 2. Data Curation & Data Engineering for Model Improvement
 
-- **NAS-Bench-101** (2019) — 423k unique CNN architectures; one of the foundational tabular NAS benchmarks. https://arxiv.org/abs/1902.09635
-- **NAS-Bench-201** (2020) — Unified 15,625-architecture benchmark evaluated on multiple datasets. https://arxiv.org/abs/2001.00326
-- **NAS-Bench-301** (2020) — Surrogate NAS benchmark for the DARTS search space. https://arxiv.org/abs/2008.09777
-- **NAS-Bench-NLP** (2020) — NAS benchmark for recurrent architectures / NLP. https://arxiv.org/abs/2006.07116
-- **NATS-Bench** (2020/2021) — Benchmarking NAS algorithms for architecture topology and size. https://arxiv.org/abs/2009.00437
-- **HW-NAS-Bench** (2021) — Hardware-aware NAS benchmark with measured hardware costs. https://arxiv.org/abs/2103.10584
-- **TransNAS-Bench-101** (2021) — Transferable NAS benchmark across tasks. https://arxiv.org/abs/2105.11871
-- **NAS-Bench-Suite** (2022) — A benchmark suite intended to reduce overfitting to a single NAS search space. https://arxiv.org/abs/2201.13396
+| Benchmark / Environment | Year | What it tests |
+|---|:---:|---|
+| [Curation-Bench](https://arxiv.org/abs/2606.04261) | 2026 | closed-loop agentic data selection/curation where agents revise policies after model-training feedback |
+| [Autonomous Agentic Data Engineering](https://arxiv.org/abs/2605.30407) | 2026 | end-to-end data generation and curriculum optimization for model specialization |
+| [DSGym](https://arxiv.org/abs/2601.16344) | 2026 | executable data-science agent training/evaluation across heterogeneous tasks |
+| [RSIBench-Data](https://arxiv.org/abs/2607.25886) | 2026 | data-agent capability in a recursive-improvement-oriented setting |
 
-## 3. Black-Box / Algorithm Optimization Benchmarks
+## 3. LLM Fine-Tuning & Post-Training
 
-- **BBOB / COCO** — Long-running black-box optimization benchmark ecosystem, important background for automated algorithm design. https://coco-platform.org/
-- **Nevergrad** — Optimization benchmark/platform spanning gradient-free optimization and algorithm configuration. https://github.com/facebookresearch/nevergrad
-- **MetaBox** (2023) — Benchmark/platform for meta-black-box optimization and learned optimizers. https://arxiv.org/abs/2305.16605
+| Benchmark / Environment | Year | What it tests |
+|---|:---:|---|
+| [FT-Dojo](https://arxiv.org/abs/2603.01712) | 2026 | autonomous end-to-end LLM fine-tuning across data, training, evaluation, and diagnosis |
+| [PostTrainBench](https://arxiv.org/abs/2603.08640) | 2026 | autonomous post-training of base LMs under bounded compute |
+| [Agent^2 RL-Bench](https://arxiv.org/abs/2604.10547) | 2026 | whether agents can design, implement, debug, and run complete agentic RL post-training loops |
 
-## 4. Code & Software Engineering Precursors
+This branch is especially important for AI4AI because the **object being improved is the model itself**, rather than a downstream application built with the model.
 
-These are not AI4AI-specific, but they provide the execution substrate and evaluation ideas later reused by ML/R&D agents.
+## 4. Research Implementation, Reproduction & Full AI Projects
 
-- **HumanEval** (2021) — Functional correctness of code generation. https://arxiv.org/abs/2107.03374
-- **SWE-bench** (2023/2024) — Repository-level software engineering benchmark based on real GitHub issues. https://arxiv.org/abs/2310.06770
-- **SWE-bench Verified** (2024) — Human-validated subset of SWE-bench. https://www.swebench.com/
-- **SWE-Lancer** (2025) — Real-world freelance software engineering tasks. https://openai.com/index/swe-lancer/
+| Benchmark | Year | What it tests |
+|---|:---:|---|
+| [PaperBench](https://arxiv.org/abs/2504.01848) | 2025 | reproducing AI research papers from scratch |
+| [ResearchCodeBench](https://arxiv.org/abs/2506.02314) | 2025 | implementing novel ML methods from recent papers |
+| [LMR-BENCH](https://aclanthology.org/2025.emnlp-main.314/) | 2025 | reproducing language-modeling research |
+| [EXP-Bench](https://arxiv.org/abs/2505.24785) | 2025/26 | complete executable AI experiments: design → implementation → execution → analysis |
+| [MLR-Bench](https://arxiv.org/abs/2505.19955) | 2025 | open-ended ML research tasks |
+| [ResearchGym](https://arxiv.org/abs/2602.15112) | 2026 | real-world closed-loop AI projects |
+| [AIRS-Bench](https://arxiv.org/abs/2602.06855) | 2026 | frontier AI-research-agent tasks from state-of-the-art ML work |
+| [NatureBench](https://arxiv.org/abs/2606.24530) | 2026 | matching/reproducing published scientific coding results |
 
-## 5. Machine Learning Experimentation & Engineering Agents
+## 5. Agent-System / Harness Improvement
 
-- **MLAgentBench** (2023) — 13 end-to-end ML experimentation tasks where agents modify files, run code, inspect results, and iterate. https://arxiv.org/abs/2310.03302
-- **MLE-bench** (2024) — 75 Kaggle competitions used to evaluate autonomous machine-learning engineering agents. https://arxiv.org/abs/2410.07095
-- **RE-Bench** (2024/2025) — 7 open-ended frontier AI research-engineering environments with human expert baselines and long time budgets. https://arxiv.org/abs/2411.15114
+Harness work often evaluates on general coding/agent benchmarks rather than a single dedicated AI4AI benchmark. Relevant evaluation settings include:
 
-## 6. Research Replication / Full Research Benchmarks
+- **Meta-Harness** — outer-loop optimization of harness source code using execution traces and held-out performance.
+- **Self-Harness** — self-modification of an agent harness with regression validation.
+- **Retrospective Harness Optimization (RHO)** — self-supervised harness improvement from past trajectories.
+- **ADAS / EvoAgentX / SwarmAgentic** — automatic generation or optimization of agentic systems/workflows.
 
-- **PaperBench** (2025) — Replicate 20 ICML 2024 Spotlight/Oral papers from scratch; 8,316 rubric items. https://openai.com/index/paperbench/
-- **PaperBench Code-Dev** (2025) — Code-development-focused slice of PaperBench. https://github.com/openai/preparedness/tree/main/project/paperbench
-- **JudgeEval** (2025) — Auxiliary evaluation introduced with PaperBench to evaluate automated judges for research replication. https://openai.com/index/paperbench/
+This deserves separate tracking because the **optimization object is the AI agent system itself**, not merely the task solution.
 
-## 7. Scientific Discovery / Research-Agent Evaluation
+## 6. Self-Improvement / Meta-Evolution
 
-This area is still much less standardized than AutoML or code benchmarks. We should track benchmarks along multiple axes rather than treating a single score as sufficient:
+| Benchmark / Stack | Year | What it tests |
+|---|:---:|---|
+| [OpenMLE / Frontis-MA1](https://arxiv.org/abs/2607.28568) | 2026 | execution-grounded operator learning + long-horizon evolutionary MLE search, with transfer to held-out AI tasks |
+| [RSIBench-Data](https://arxiv.org/abs/2607.25886) | 2026 | recursive-improvement-oriented data-agent evaluation |
 
-- hypothesis quality / novelty;
-- literature-grounding accuracy;
-- experimental design quality;
-- ability to execute experiments;
-- scientific correctness;
-- reproducibility;
-- claim verification;
-- long-horizon progress under compute/time budgets;
-- information gain / uncertainty reduction;
-- ability to revise beliefs after negative or contradictory evidence.
+The central evaluation question here is no longer only **“did the final artifact improve?”** but also **“did the system become a better improver?”**
 
-## Benchmark progression
+---
 
-A useful difficulty ladder for the survey is:
+## Capability Progression
 
-> **fixed black-box objective**  
-> HPOBench / YAHPO  
-> ↓  
-> **architecture / program search**  
-> NAS-Bench family  
-> ↓  
-> **end-to-end AutoML**  
-> AMLB  
-> ↓  
-> **ML experimentation**  
-> MLAgentBench  
-> ↓  
-> **realistic ML engineering**  
-> MLE-bench  
-> ↓  
-> **frontier research engineering**  
-> RE-Bench  
-> ↓  
-> **paper-level replication**  
-> PaperBench  
-> ↓  
-> **open-ended scientific research**  
-> still an open evaluation problem.
+```text
+single ML experiment
+      ↓
+competition-scale MLE
+      ↓
+data / training-recipe optimization
+      ↓
+model fine-tuning and post-training
+      ↓
+research implementation / reproduction
+      ↓
+full AI-development projects
+      ↓
+agent / harness optimization
+      ↓
+meta-improvement: improve the improver
+```
 
-## Evaluation gap
+## What should an Agent4AI benchmark measure?
 
-Most existing benchmarks still reward an **artifact outcome**: final score, working code, replicated result, or rubric completion. A stronger benchmark for research-level AI4AI should additionally measure whether the agent:
+Final score alone is increasingly insufficient. Useful dimensions include:
 
-1. forms useful hypotheses;
-2. chooses informative experiments;
-3. updates beliefs appropriately after evidence;
-4. avoids repeatedly testing already-refuted ideas;
-5. transfers learned research strategies across problems;
-6. can justify why the next experiment is valuable before running it.
+- **execution grounding** — are improvements measured by real runs rather than self-evaluation only?
+- **credit assignment** — can the system identify which change caused the improvement or failure?
+- **iteration efficiency** — improvement per unit of compute, time, or number of executions;
+- **transfer** — do strategies learned on one task/model help unseen ones?
+- **persistence** — are gains stored in reusable knowledge, weights, or harness changes?
+- **robustness** — does the method avoid overfitting a benchmark/task?
+- **loop closure** — how much of propose → execute → evaluate → revise is agent-owned?
+- **self-improvement** — does an improved agent/harness become better at future AI-improvement tasks?
