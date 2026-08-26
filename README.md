@@ -2,299 +2,252 @@
 
 # 🤖 Awesome AI4AI
 
-### From AutoML to Agent4AI and Recursive Self-Improvement
+### AI Agents for Improving AI
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 ![Focus](https://img.shields.io/badge/Focus-Agent4AI-blue)
 ![Coverage](https://img.shields.io/badge/Coverage-2024--2026-orange)
 ![Papers](https://img.shields.io/badge/Agent4AI-160%2B%20papers-brightgreen)
 
-**AI4AI** studies how AI can improve the development of AI itself. This repository emphasizes **Agent4AI**: agents that build models, run experiments, learn from execution, optimize research strategies, and increasingly improve the machinery used to build future AI.
+**AI4AI** asks a simple question: **how can AI improve AI?**
 
-[Agent4AI Hub](agent4ai/README.md) · [Paper Table](agent4ai/papers.md) · [Recent Papers](agent4ai/recent.md) · [Benchmarks](agent4ai/benchmarks.md) · [Surveys](agent4ai/surveys.md) · [Foundations](foundations/papers.md) · [Writing Notes](writing/notes.md)
+This repository focuses on **Agent4AI** — AI agents that build, train, evaluate, optimize, redesign, or research AI systems. This includes **MLE agents, data-analytic agents, LLM post-training agents, algorithm/program discovery, agent-system optimization, AI research agents, and self-improving AI systems**.
+
+[🚀 Start Here](agent4ai/getting-started.md) · [🧭 Agent4AI Taxonomy](agent4ai/README.md) · [📚 Papers](agent4ai/papers.md) · [🧪 Benchmarks](agent4ai/benchmarks.md) · [🆕 Recent Papers](agent4ai/recent.md) · [📖 Surveys](agent4ai/surveys.md)
 
 </div>
 
 ---
 
-## 🧭 AI4AI Evolution
+## What does Agent4AI do?
+
+The common pattern is an **AI improvement loop**:
 
 ```text
-AutoML / HPO / NAS
-        ↓
-LLMs as Optimizers & Program Search
-        ↓
-MLE Agents: code → execute → metric → revise
-        ↓
-Long-horizon Search + Memory + Experience
-        ↓
-Execution-grounded SFT / RL
-        ↓
-World Models / Research Judgment
-        ↓
-Harness & Improver Optimization
-        ↓
-AI Research Agents / AI Scientists
-        ↓
-Meta-Evolution / Recursive Self-Improvement
+Goal: build / improve an AI system
+              ↓
+     Propose candidate changes
+              ↓
+      Build / Train / Execute
+              ↓
+       Evaluate / Verify
+              ↓
+ Interpret outcome / assign credit
+              ↓
+ Update experience / decision state
+              ↓
+      Select the next action
+              ↓
+Learn the policy / redesign the agent
+              ↓
+             Repeat
 ```
 
-The central shift is from **optimizing a solution** to **optimizing the process that generates future solutions**.
+The target can be a model, data pipeline, training recipe, algorithm, agent harness, or complete AI-development workflow.
 
 ---
 
-# 🔥 Agent4AI Method Paradigms
+## Main Agent4AI application families
 
-A useful way to organize modern Agent4AI is by **where the improvement lives**. This taxonomy follows the structure emerging from recent MLE/AutoResearch work, especially OpenRSI / Frontis-MA1, while separating several increasingly important branches.
+| Family | What the agent improves | Representative work |
+|---|---|---|
+| **MLE / AutoML Agents** | ML pipelines, features, models, code, experiments | MLAgentBench, AIDE, MLE-STAR, ML-Master, AIBuildAI-2 |
+| **Data-Analytic Agents for AI** | executable data analysis and modeling workflows | DS-Agent, DataMind, DSGym, DatawiseAgent |
+| **LLM Training / Post-Training Agents** | data synthesis, fine-tuning, alignment, post-training recipes | AutoTrainess, PostTrainBench, ANDES |
+| **Algorithm / Program Discovery** | algorithms, optimizers, executable programs | FunSearch, AlphaEvolve, MLEvolve, AdaEvolve |
+| **Agent-System Optimization** | prompts, tools, memory, topology, orchestration, harness source | ADAS, EvoAgentX, SwarmAgentic, Meta-Harness, Self-Harness |
+| **AI Research / Reproduction Agents** | research ideas, experiments, implementations, papers | AI Scientist, AIRA, Agent Laboratory, ResearchCodeBench, ResearchGym |
+| **Self-Improving AI Systems** | the agent or improver used to build future AI | Frontis-MA1 / OpenRSI, meta-evolution systems |
 
-| Paradigm | What changes? | Feedback / state | Representative papers |
-|---|---|---|---|
-| **P1. Inference-Time Search & Scaffolds** | candidate code / experiment trajectory | execution score, logs, search tree | SELA, AIDE, I-MCTS, MLE-STAR, AIRA, AutoMLGen |
-| **P2. Execution-Grounded Agent Learning** | model policy / operator behavior | executable rewards, SFT/RL trajectories | ML-Agent, MLE-RL, AceGRPO, OpenMLE-ERL / Frontis-MA1 |
-| **P3. Experience & Memory Augmentation** | retrieved experience / persistent state | successful + failed experiments, cross-task knowledge | ML-Master, MLEvolve, AIBuildAI-2, hypothesis-tree refinement |
-| **P4. Predictive World Models & Research Judgment** | predicted value of future experiments | learned execution priors, uncertainty, research-value signals | FOREAGENT; emerging AI4AI world-model / research-taste direction |
-| **P5. Harness / Workflow Optimization** | prompts, tools, orchestration, memory code, agent topology | traces + downstream task scores | Automated Design of Agentic Systems, EvoAgentX, Meta-Harness, SwarmAgentic |
-| **P6. Evolutionary / Program-Discovery Systems** | programs, algorithms, populations | executable fitness + recombination / mutation | FunSearch, AlphaEvolve, MLEvolve, AdaEvolve, OpenMLE-Evo |
-| **P7. Trainable Improvers / Meta-Evolution** | the improver itself | search experience returns to training, then back to search | Frontis-MA1 / OpenRSI, MLE-RL, test-time learning, self-improving agents |
-| **P8. Full AutoResearch / AI Scientists** | hypotheses, experiments, evidence, papers, research state | scientific evidence, reviewer / benchmark / artifact feedback | AI Scientist, AI Scientist-v2, Agent Laboratory, AIRA_2, Arbor |
-
-### A second axis: what is the optimization target?
-
-```text
-solution parameters
-      ↓
-program / model code
-      ↓
-experiment trajectory
-      ↓
-agent policy
-      ↓
-experience / memory
-      ↓
-harness / workflow
-      ↓
-research strategy
-      ↓
-the improver itself
-```
-
-This distinction matters because two systems may use the same LLM but represent very different levels of AI4AI: **AIDE searches candidate solutions**, **ML-Agent changes the agent policy**, **Meta-Harness changes the harness**, and **OpenRSI explicitly couples search experience back into training of the improver**.
+> These are **application families**. Our method taxonomy separately asks **how** the agent improves AI.
 
 ---
 
-<details open>
-<summary><h2>🌲 P1 · Inference-Time Search & Scaffolds</h2></summary>
+# 🔥 Agent4AI Method Map
 
-Keep the underlying model mostly fixed and spend additional inference compute on structured exploration, branching, selection, refinement, or multi-agent decomposition.
+Rather than use a generic agent taxonomy such as *planning / memory / tools / multi-agent*, we organize methods by **which part of the AI-improvement loop becomes better**.
 
-| Year | Paper | Main mechanism |
-|:---:|---|---|
-| 2024 | [SELA](https://arxiv.org/abs/2410.17238) | tree-search enhanced LLM AutoML |
-| 2025 | [AIDE](https://arxiv.org/abs/2502.13138) | solution-tree exploration in code space |
-| 2025 | [I-MCTS](https://arxiv.org/abs/2502.14693) | introspective Monte Carlo tree search |
-| 2025 | [MLE-STAR](https://arxiv.org/abs/2506.15692) | search + targeted code-block refinement |
-| 2025 | [AI Research Agents for Machine Learning](https://arxiv.org/abs/2507.02554) | search / exploration policies on MLE-Bench |
-| 2025 | [AutoMLGen](https://arxiv.org/abs/2510.08511) | fine-grained optimization for coding agents |
-| 2026 | [Reasoning as Gradient](https://arxiv.org/abs/2603.01692) | iterative reasoning feedback beyond conventional tree search |
+| Branch | What improves? | Representative work |
+|---|---|---|
+| **B1. Candidate Generation & Search** | code, models, pipelines, algorithms, candidate experiments | SELA, AIDE, I-MCTS, MLE-STAR, R&D-Agent |
+| **B2. Execution, Evaluation & Credit** | quality of executable feedback and attribution | MLE-bench, MLE-Dojo, executable graders / verifiers |
+| **B3. Experience → Reusable Knowledge** | transferable lessons, skills, failure modes | ML-Master, AIBuildAI-2, MLEvolve |
+| **B4. State Update & Next-Action Selection** | search state, uncertainty, value estimates, hypotheses | I-MCTS, Reasoning as Gradient, FOREAGENT, hypothesis-tree methods |
+| **B5. Policy Learning from Experience** | model / agent weights | ML-Agent, MLE-RL, AceGRPO, Frontis-MA1 |
+| **B6. Harness / Workflow Optimization** | prompts, tools, memory implementation, context, topology | ADAS, Meta-Harness, Self-Harness, SwarmAgentic |
+| **B7. Program / Algorithm Evolution** | populations of programs, algorithms, agents | FunSearch, AlphaEvolve, AdaEvolve, OpenMLE-Evo |
+| **B8. Improver Learning / Meta-Evolution** | the improvement mechanism itself | Frontis-MA1 / OpenRSI, self-improving evolutionary systems |
+| **B9. Full-Cycle AI Development** | complete AI-development or research workflows | AI Scientist, AIRA, AlphaLab, ResearchGym |
 
-**Core idea:** improvement remains largely in an **external scaffold**. The model proposes; the harness allocates compute and decides what to try next.
-
-</details>
-
-<details open>
-<summary><h2>🎯 P2 · Execution-Grounded Agent Learning</h2></summary>
-
-Instead of keeping all improvement logic outside the model, these methods **internalize executable experience** through SFT, RL, preference optimization, or other post-training.
-
-| Year | Paper | Main mechanism |
-|:---:|---|---|
-| 2025 | [ML-Agent](https://arxiv.org/abs/2505.23723) | reinforcement learning for autonomous MLE |
-| 2025 | [MLE-RL](https://openreview.net/forum?id=nElqyHPHAz) | RL for self-improvement in machine-learning agents |
-| 2025 | [MLE-Dojo](https://arxiv.org/abs/2505.07782) | interactive executable environments for training MLE agents |
-| 2026 | [AceGRPO](https://arxiv.org/abs/2602.07906) | curriculum-enhanced GRPO for autonomous MLE |
-| 2026 | [Frontis-MA1 / OpenMLE-ERL](https://arxiv.org/abs/2607.28568) | execution-grounded SFT + RL over Draft / Improve / Debug / Crossover operators |
-
-**Core idea:** the result of an experiment is not only used to select a branch; it becomes a **training signal for future behavior**.
-
-</details>
-
-<details open>
-<summary><h2>🧠 P3 · Experience, Memory & Persistent Research State</h2></summary>
-
-These systems explicitly preserve what happened before so that later decisions do not restart from scratch.
-
-| Year | Paper | Experience mechanism |
-|:---:|---|---|
-| 2024 | [DS-Agent](https://arxiv.org/abs/2402.17453) | case-based reasoning from prior data-science tasks |
-| 2025 | [ML-Master](https://arxiv.org/abs/2506.16499) | adaptive memory integrated with exploration / reasoning |
-| 2025 | [AutoMind](https://arxiv.org/abs/2506.10974) | external expert knowledge + adaptive retrieval |
-| 2026 | [AIBuildAI-2](https://arxiv.org/abs/2605.27873) | evolving hierarchical knowledge base + experience distillation |
-| 2026 | [MLEvolve](https://arxiv.org/abs/2606.06473) | retrospective memory + graph-based cross-branch information flow |
-| 2026 | [Toward Generalist Autonomous Research via Hypothesis-Tree Refinement](https://arxiv.org/abs/2606.11926) | persistent hypotheses, artifacts, evidence, and reusable insights |
-| 2026 | [Hierarchical Accumulation of Skills for Transfer-Efficient ML Engineering](https://arxiv.org/abs/2606.30911) | cross-task skill accumulation |
-
-**Core idea:** optimization state grows from `code + score` into **trajectory / knowledge / hypothesis / evidence state**.
-
-</details>
-
-<details open>
-<summary><h2>🔮 P4 · Predictive World Models & Research Judgment</h2></summary>
-
-Execution is expensive. A stronger Agent4AI system should learn to estimate **what will happen** and **which experiment is worth running** before spending compute.
-
-| Year | Paper / direction | Main idea |
-|:---:|---|---|
-| 2026 | [FOREAGENT: Can We Predict Before Executing Machine Learning Agents?](https://arxiv.org/abs/2601.05930) | Predict-then-Verify with learned execution priors |
-| 2026 | [OpenRSI / Frontis-MA1](https://arxiv.org/abs/2607.28568) | explicitly identifies richer research objectives, AI4AI world models, and research judgment as a next step |
-| Emerging | **Research world models / research taste** | predict improvement, information gain, robustness, generalization, or value-of-compute rather than only final metric |
-
-**Core idea:** move from a purely reactive loop
-
-`generate → execute → observe`
-
-toward
-
-`predict → prioritize → execute selectively → update belief`.
-
-</details>
-
-<details open>
-<summary><h2>🧰 P5 · Harness & Workflow Optimization</h2></summary>
-
-The optimization target is no longer the task solution alone — it becomes the **agent system itself**: context management, memory, tools, prompts, roles, topology, and orchestration.
-
-| Year | Paper | What is optimized? |
-|:---:|---|---|
-| 2024 | [Automated Design of Agentic Systems](https://arxiv.org/abs/2408.08435) | agentic system design |
-| 2025 | [EvoAgentX](https://arxiv.org/abs/2507.03616) | evolving agentic workflows |
-| 2025 | [SwarmAgentic](https://aclanthology.org/2025.emnlp-main.93/) | swarm-based automated agent-system generation |
-| 2026 | [Meta-Harness](https://arxiv.org/abs/2603.28052) | harness source code using prior source, traces, and scores |
-| 2026 | [Better Harnesses, Smaller Models](https://arxiv.org/abs/2607.08938) | automated adaptation of instructions, tools, and orchestration |
-
-**Core idea:** instead of asking “what code should the agent write?”, ask **“what agent should we build to solve future tasks?”**
-
-</details>
-
-<details open>
-<summary><h2>🧬 P6–P7 · Evolution, Self-Evolution & Meta-Evolution</h2></summary>
-
-Evolutionary Agent4AI treats executable programs or agents as a population. The more ambitious step is to make the **variation mechanism / improver** itself learn from prior evolution.
-
-| Year | Paper | Level |
-|:---:|---|---|
-| 2023/24 | [FunSearch](https://www.nature.com/articles/s41586-023-06924-6) | LLM-guided program evolution |
-| 2025 | [AlphaEvolve](https://arxiv.org/abs/2506.13131) | evolutionary coding for algorithms / scientific discovery |
-| 2025 | [Self-Improving Language Models for Evolutionary Program Synthesis](https://arxiv.org/abs/2507.14172) | search experience returned through hindsight fine-tuning |
-| 2025 | [ShinkaEvolve](https://arxiv.org/abs/2509.19349) | open-ended, sample-efficient program evolution |
-| 2026 | [AdaEvolve](https://arxiv.org/abs/2602.20133) | adaptive LLM-driven zeroth-order optimization |
-| 2026 | [MLEvolve](https://arxiv.org/abs/2606.06473) | self-evolving MLE search + memory |
-| 2026 | [Frontis-MA1 / OpenRSI](https://arxiv.org/abs/2607.28568) | **meta-evolution:** search generates executable experience that trains the same operators used in future search |
-| 2026 | [Self-Improving Agents in the Era of Experience](https://openreview.net/forum?id=IUltZSgLMm) | survey framing self-evolution → meta-evolution → RSI |
-
-### The RSI ladder
-
-```text
-Evolution
-  candidate solutions improve
-        ↓
-Self-Evolution
-  agent/system modifies itself
-        ↓
-Meta-Evolution
-  the improver learns how to improve
-        ↓
-Recursive Self-Improvement
-  improved improvers accelerate future improvement
-```
-
-OpenRSI is especially useful conceptually because it couples **environment → execution → experience → training → evolutionary search** in one reproducible loop rather than treating search and learning as separate components.
-
-</details>
-
-<details open>
-<summary><h2>🔬 P8 · AutoResearch, AI Research Agents & AI Scientists</h2></summary>
-
-Here the unit of optimization grows beyond a competition score into a research process: **hypothesis → experiment → evidence → interpretation → artifact**.
-
-| Year | Paper | Research scope |
-|:---:|---|---|
-| 2024 | [ResearchAgent](https://arxiv.org/abs/2404.07738) | literature-grounded iterative ideation |
-| 2024 | [The AI Scientist](https://arxiv.org/abs/2408.06292) | idea → experiments → paper → review |
-| 2025 | [Agent Laboratory](https://arxiv.org/abs/2501.04227) | multi-agent literature / experimentation / writing |
-| 2025 | [AI Scientist-v2](https://arxiv.org/abs/2504.08066) | agentic tree-search scientific discovery |
-| 2025 | [AI Research Agents for Machine Learning](https://arxiv.org/abs/2507.02554) | MLE search, exploration, generalization |
-| 2026 | [AIRA_2](https://arxiv.org/abs/2603.26499) | improved AI-research-agent search / harness |
-| 2026 | [Toward Autonomous Long-Horizon Engineering for ML Research](https://arxiv.org/abs/2604.13018) | persistent long-horizon ML research engineering |
-| 2026 | [Toward Generalist Autonomous Research via Hypothesis-Tree Refinement](https://arxiv.org/abs/2606.11926) | hypothesis / evidence state across long-horizon research |
-
-</details>
+Detailed taxonomy → [`agent4ai/README.md`](agent4ai/README.md)
 
 ---
 
-## 📊 Benchmarks: What Part of AI R&D Is Being Tested?
+## Where does memory fit?
 
-| Benchmark | Year | Evaluation target |
-|---|:---:|---|
-| [MLAgentBench](https://arxiv.org/abs/2310.03302) | 2023/24 | iterative ML experimentation |
-| [MLE-bench](https://arxiv.org/abs/2410.07095) | 2024 | end-to-end Kaggle-style MLE |
-| [RE-Bench](https://arxiv.org/abs/2411.15114) | 2024/25 | long-horizon frontier AI R&D |
-| [MLE-Dojo](https://arxiv.org/abs/2505.07782) | 2025 | executable environments for MLE training/eval |
-| [PaperBench](https://arxiv.org/abs/2504.01848) | 2025 | replication of AI research papers |
-| [MLR-Bench](https://arxiv.org/abs/2505.19955) | 2025 | open-ended ML research |
-| [ResearchCodeBench](https://arxiv.org/abs/2506.02314) | 2025 | implementing novel ML research methods |
-| [EXP-Bench](https://arxiv.org/abs/2505.24785) | 2025/26 | complete AI research experiments |
-| [PostTrainBench](https://arxiv.org/abs/2603.08640) | 2026 | autonomous LLM post-training |
-| [ResearchGym](https://arxiv.org/abs/2602.15112) | 2026 | real-world AI research projects |
-| [AIRS-Bench](https://arxiv.org/abs/2602.06855) | 2026 | frontier AI research science agents |
-| [MLS-Bench](https://arxiv.org/abs/2605.08678) | 2026 | inventing generalizable / scalable ML methods |
-| [NatureBench](https://arxiv.org/abs/2606.24530) | 2026 | matching or surpassing published scientific SOTA |
-| [RSIBench-Data](https://arxiv.org/abs/2607.25886) | 2026 | RSI-oriented data-agent evaluation |
+**Memory itself is not automatically AI4AI.** It belongs here when stored experience directly improves future AI-building decisions.
+
+```text
+M1  Trajectory memory
+    remember runs, code, metrics, failures
+           ↓
+M2  Experience / knowledge
+    extract reusable skills, lessons, failure conditions
+           ↓
+M3  Structured decision state
+    maintain confidence, evidence, promising directions,
+    unresolved questions, or values of candidate actions
+```
+
+The important problem is therefore not merely *how to retrieve memory*, but **how experience is written, credited, abstracted, revised, forgotten, and converted into better future AI-development actions**.
+
+Examples include **ML-Master, AIBuildAI-2, MLEvolve**, and hypothesis/evidence-state approaches.
+
+---
+
+## Where do world models / predictive models fit?
+
+They are **not a standalone top-level Agent4AI direction**.
+
+They are one possible mechanism in **B4: State Update & Next-Action Selection**. Because full training runs and experiments are expensive, an agent may estimate candidate value before execution:
+
+```text
+candidate actions
+      ↓
+heuristic / MCTS value / uncertainty / learned critic / predictor
+      ↓
+prioritize
+      ↓
+execute selectively
+      ↓
+update state
+```
+
+[FOREAGENT](https://arxiv.org/abs/2601.05930) is one example of predict-then-verify. Other systems can solve the same decision problem with search values, bandits, cheap proxy runs, uncertainty, or learned critics.
+
+---
+
+## ⭐ Representative Agent4AI systems
+
+| Year | Paper / System | Family | Main idea |
+|:---:|---|---|---|
+| 2023/24 | [MLAgentBench](https://arxiv.org/abs/2310.03302) | MLE | iterative ML experimentation benchmark |
+| 2024 | [DS-Agent](https://arxiv.org/abs/2402.17453) | Data / MLE | case-based reuse of data-science experience |
+| 2024 | [The AI Scientist](https://arxiv.org/abs/2408.06292) | AutoResearch | idea → experiment → paper → review |
+| 2024 | [MLE-bench](https://arxiv.org/abs/2410.07095) | Benchmark | 75 Kaggle competitions for end-to-end MLE |
+| 2024 | [SELA](https://arxiv.org/abs/2410.17238) | MLE | tree-search-enhanced LLM AutoML |
+| 2025 | [AIDE](https://arxiv.org/abs/2502.13138) | MLE | solution-tree search in code space |
+| 2025 | [MLE-Dojo](https://arxiv.org/abs/2505.07782) | Training / Benchmark | executable environments for MLE agents |
+| 2025 | [ML-Agent](https://arxiv.org/abs/2505.23723) | Policy Learning | RL for autonomous MLE |
+| 2025 | [R&D-Agent](https://arxiv.org/abs/2505.14738) | MLE / AI R&D | research + development + evolution |
+| 2025 | [MLE-STAR](https://arxiv.org/abs/2506.15692) | MLE | search + targeted refinement |
+| 2025 | [ML-Master](https://arxiv.org/abs/2506.16499) | MLE / Memory | exploration + reasoning + adaptive memory |
+| 2025/26 | [DataMind](https://arxiv.org/abs/2509.25084) | Data Agent | scaling generalist executable data-analytic agents |
+| 2025 | [AlphaEvolve](https://arxiv.org/abs/2506.13131) | Algorithm Discovery | LLM-guided evolutionary coding |
+| 2026 | [DSGym](https://arxiv.org/abs/2601.16344) | Data Agent | executable training/evaluation environments |
+| 2026 | [FOREAGENT](https://arxiv.org/abs/2601.05930) | Decision / MLE | predict-then-verify candidate execution |
+| 2026 | [AIBuildAI-2](https://arxiv.org/abs/2605.27873) | MLE / Knowledge | evolving knowledge distilled from completed MLE runs |
+| 2026 | [MLEvolve](https://arxiv.org/abs/2606.06473) | MLE / Evolution | progressive graph search + retrospective memory |
+| 2026 | [Meta-Harness](https://arxiv.org/abs/2603.28052) | Harness | optimize harness source code using traces and scores |
+| 2026 | [Self-Harness](https://arxiv.org/abs/2606.09498) | Harness | agent improves its own harness |
+| 2026 | [AutoTrainess](https://arxiv.org/abs/2606.31551) | Post-Training | autonomous LM post-training agent |
+| 2026 | [Frontis-MA1 / OpenRSI](https://arxiv.org/abs/2607.28568) | Self-Improvement | execution-grounded learning + evolutionary AI4AI loop |
+
+Full bibliography → [`agent4ai/papers.md`](agent4ai/papers.md) and [`agent4ai/recent.md`](agent4ai/recent.md)
+
+---
+
+## 🧪 Benchmark map
+
+| Benchmark | What it tests |
+|---|---|
+| [MLE-bench](https://arxiv.org/abs/2410.07095) | competition-scale ML engineering |
+| [RE-Bench](https://arxiv.org/abs/2411.15114) | long-horizon AI R&D |
+| [MLE-Dojo](https://arxiv.org/abs/2505.07782) | executable MLE training/evaluation |
+| [PaperBench](https://arxiv.org/abs/2504.01848) | AI paper reproduction |
+| [MLR-Bench](https://arxiv.org/abs/2505.19955) | open-ended ML research |
+| [ResearchCodeBench](https://arxiv.org/abs/2506.02314) | implementing novel methods from ML papers |
+| [EXP-Bench](https://arxiv.org/abs/2505.24785) | complete AI research experiments |
+| [PostTrainBench](https://arxiv.org/abs/2603.08640) | autonomous LLM post-training |
+| [ResearchGym](https://arxiv.org/abs/2602.15112) | real-world closed-loop AI projects |
+| [MLS-Bench](https://arxiv.org/abs/2605.08678) | building AI improvements that generalize across settings/scales |
+| [NatureBench](https://arxiv.org/abs/2606.24530) | reproducing / matching published scientific code results |
+| [RSIBench-Data](https://arxiv.org/abs/2607.25886) | recursive-improvement-oriented data agents |
 
 Full map → [`agent4ai/benchmarks.md`](agent4ai/benchmarks.md)
 
 ---
 
+## 🚀 New to the field?
+
+A practical reading path is:
+
+```text
+MLE-bench
+   ↓
+AIDE / MLE-STAR / ML-Master
+   ↓
+MLE-Dojo / ML-Agent
+   ↓
+AIBuildAI-2 / MLEvolve
+   ↓
+Meta-Harness / Self-Harness
+   ↓
+Frontis-MA1 / OpenRSI
+```
+
+Then branch based on your interest:
+
+- **MLE / search:** AIDE, MLE-STAR, ML-Master;
+- **learning agents:** MLE-Dojo, ML-Agent, Frontis-MA1;
+- **memory / experience:** AIBuildAI-2, MLEvolve;
+- **post-training:** AutoTrainess, PostTrainBench, ANDES;
+- **agent-system optimization:** ADAS, Meta-Harness, Self-Harness;
+- **algorithm discovery:** AlphaEvolve, MLEvolve, AdaEvolve;
+- **AI research:** AI Scientist, AIRA, ResearchGym.
+
+For reproducible starting projects, benchmark choices, and concrete research questions, see **[Getting Started with Agent4AI Research](agent4ai/getting-started.md)**.
+
+---
+
 <details>
-<summary><h2>📜 Classical AI4AI Foundations</h2></summary>
+<summary><h2>📜 Classical AI4AI Background</h2></summary>
 
-These are retained as the historical substrate of Agent4AI.
+AutoML, HPO, NAS, meta-learning, learned optimizers, and LLM-as-optimizer methods provide historical context for AI4AI. They are kept as background rather than the main focus of this repository.
 
-**AutoML / HPO:** Auto-WEKA · auto-sklearn · TPOT · Hyperband · BOHB · AutoGluon · FLAML  
-**NAS:** NAS with RL · NASNet · ENAS · DARTS · ProxylessNAS · Once-for-All  
-**Meta-Learning / Learned Optimization:** Learning to Learn by Gradient Descent · MAML · Population-Based Training · VeLO  
-**Algorithm / Program Discovery:** Neural Optimizer Search · AutoML-Zero · FunSearch · AlphaEvolve  
-**LLMs as Optimizers:** APE · OPRO · Promptbreeder · Eureka · TextGrad
+Examples: Auto-WEKA · auto-sklearn · TPOT · Hyperband · DARTS · MAML · AutoML-Zero · OPRO · TextGrad.
 
-Full foundation bibliography → [`foundations/papers.md`](foundations/papers.md)
+Full background bibliography → [`foundations/papers.md`](foundations/papers.md)
 
 </details>
 
 ---
 
-## 🗂 Repository Structure
+## Repository structure
 
 ```text
 Awesome-AI4AI/
 ├── README.md
 ├── agent4ai/
-│   ├── README.md          # detailed taxonomy / navigation
-│   ├── papers.md          # master Agent4AI paper table
-│   ├── recent.md          # newly verified papers before merge
-│   ├── benchmarks.md      # evaluation landscape
-│   └── surveys.md         # surveys / reviews
+│   ├── README.md          # detailed method taxonomy
+│   ├── getting-started.md # newcomer → reproducible research path
+│   ├── papers.md          # main Agent4AI bibliography
+│   ├── recent.md          # newly discovered papers
+│   ├── benchmarks.md      # benchmark landscape
+│   └── surveys.md         # related surveys
 ├── foundations/
-│   └── papers.md          # AutoML / NAS / meta-learning / algorithm discovery
+│   └── papers.md          # classical AI4AI background
 └── writing/
-    ├── notes.md           # survey thesis / gaps / writing ideas
-    └── reading-list.md    # prioritized reading path
+    ├── notes.md           # survey ideas / gaps
+    └── reading-list.md    # prioritized reading list
 ```
-
-**Maintenance rule:** new papers → `agent4ai/recent.md` → verify / deduplicate / classify → merge into `agent4ai/papers.md`.
 
 ---
 
-## ⭐ Scope
+## Scope
 
-We use **AI4AI** as the umbrella term. The repository particularly tracks **Agent4AI**: systems that improve AI artifacts, AI-development policies, agent workflows, or the research process itself. General-purpose agents are included only when their method directly informs AI R&D automation.
+The core criterion is:
 
-Contributions, missing papers, benchmark updates, and corrections are welcome.
+> **Does this method make AI better at building, training, evaluating, optimizing, redesigning, or researching AI?**
+
+If not, it is probably a generic agent method rather than a core Agent4AI paper.
