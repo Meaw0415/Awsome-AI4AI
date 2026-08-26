@@ -22,7 +22,9 @@ A useful historical transition is:
 
 ## Repository map
 
-- [`papers.md`](papers.md) — main paper library, grouped by topic and labeled by year.
+- [`papers.md`](papers.md) — method paper library, grouped by subfield and year.
+- [`benchmarks.md`](benchmarks.md) — benchmark landscape from HPO/NAS to MLE-bench, RE-Bench and PaperBench.
+- [`surveys.md`](surveys.md) — surveys, tutorials, reviews and position papers by subfield.
 - [`survey_outline.md`](survey_outline.md) — proposed survey structure and narrative.
 - [`reading_priority.md`](reading_priority.md) — compact reading path through the field.
 
@@ -54,8 +56,6 @@ Systems improve their own search or agent machinery, maintain evolving populatio
 
 ## A second taxonomy: what drives the next action?
 
-This is useful for comparing modern agent harnesses:
-
 | Paradigm | State | Feedback | Typical next-action mechanism |
 |---|---|---|---|
 | Classical AutoML | configuration | validation metric | Bayesian/evolutionary/bandit search |
@@ -73,7 +73,7 @@ This is useful for comparing modern agent harnesses:
 3. **What provides feedback?** Validation score, reward, execution result, benchmark score, reviewer feedback, evidence, or a learned model?
 4. **How is experience reused?** Warm starts, meta-learning, memory, retrieval, trajectory archives, evolutionary populations, learned dynamics, or self-modification?
 5. **How open-ended is the task?** Fixed search space → open code space → open research problem space.
-6. **How strong is human scaffolding?** Hard-coded pipeline → agent harness → adaptive/self-authored/self-improving harness.
+6. **How strong is human scaffolding?** Hard-coded pipeline → configurable harness → adaptive/self-authored/self-improving harness.
 7. **What counts as success?** Final metric, efficiency, novelty, reproducibility, scientific validity, information gain, or long-horizon research progress?
 
 ## Proposed survey thesis
