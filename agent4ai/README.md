@@ -1,6 +1,8 @@
 # Agent4AI Hub
 
-This directory contains the fast-moving **Agent4AI** part of Awesome AI4AI: agents that autonomously perform, optimize, evaluate, or learn from AI/ML engineering and research.
+This directory contains the fast-moving **Agent4AI** part of Awesome AI4AI: agents that improve AI/ML systems or automate and improve the AI R&D process itself.
+
+> **Scope rule.** Agent4AI is **not** a generic LLM-agent survey. Planning, memory, tool use, multi-agent coordination, or RL are included only when they directly improve **AI/ML engineering, model development, experimentation, research, or the improver itself**. Generic agent-memory/tool papers are background mechanisms, not core Agent4AI papers.
 
 ## Structure
 
@@ -11,124 +13,269 @@ This directory contains the fast-moving **Agent4AI** part of Awesome AI4AI: agen
 | [`benchmarks.md`](benchmarks.md) | MLE, data-agent, AI-research, post-training, and RSI benchmarks |
 | [`surveys.md`](surveys.md) | Related surveys, reviews, and position papers |
 
-## Method taxonomy: where does the improvement live?
+## Our main taxonomy: **where does the AI-improvement state update?**
 
-| Branch | Optimization target | Typical feedback | Representative work |
+Rather than using a generic agent taxonomy such as *planning / memory / tools / multi-agent*, we organize Agent4AI by **which state in the AI R&D loop is being improved and retained**.
+
+```text
+Solution State
+   ↓
+Experiment / Search State
+   ↓
+Experience State
+   ↓
+Belief / Research State
+   ↓
+Policy State
+   ↓
+Harness State
+   ↓
+Improver State
+   ↓
+Research-System State
+```
+
+| Branch | State being updated | Core question | Representative work |
 |---|---|---|---|
-| **P1 Search / Scaffold** | candidate programs and experiment paths | runtime metrics, logs, search state | SELA, AIDE, I-MCTS, MLE-STAR |
-| **P2 Execution-Grounded Learning** | agent/model policy | executable reward, SFT/RL trajectories | ML-Agent, MLE-RL, AceGRPO, Frontis-MA1, AutoTrainess |
-| **P3 Experience / Memory** | persistent knowledge and research state | prior successes, failures, trajectories | ML-Master, AIBuildAI-2, MLEvolve, Arbor |
-| **P4 World Model / Research Judgment** | predicted experiment value | execution priors, uncertainty, value-of-compute | FOREAGENT, emerging AI4AI world models |
-| **P5 Harness / Workflow Optimization** | tools, prompts, context, orchestration, topology | downstream traces and scores | ADAS, EvoAgentX, Meta-Harness, Self-Harness, SwarmAgentic |
-| **P6 Program Evolution** | populations of programs / algorithms | executable fitness | FunSearch, AlphaEvolve, AdaEvolve, OpenMLE-Evo |
-| **P7 Trainable Improver / Meta-Evolution** | the improvement mechanism itself | search experience returned to training | OpenRSI / Frontis-MA1, self-improving agents |
-| **P8 AutoResearch / AI Scientist** | hypothesis → experiment → evidence → artifact | scientific evidence and research outcomes | AI Scientist, AIRA_2, Agent Laboratory, hypothesis-tree refinement |
+| **A1. Solution-Space Search** | candidate code / model / algorithm | How do we find a better AI solution with a mostly fixed agent? | SELA, AIDE, I-MCTS, MLE-STAR, AutoMLGen |
+| **A2. Experiment-State Optimization** | search tree / experiment portfolio / resource allocation | Which experiment should run next, and how should compute be allocated? | AIDE, I-MCTS, R&D-Agent, Reasoning as Gradient |
+| **A3. Experience → Knowledge** | reusable successful/failed trajectories, skills, lessons | How does an agent accumulate transferable AI-engineering experience? | DS-Agent, ML-Master, AIBuildAI-2, MLEvolve |
+| **A4. Evidence → Belief / Research State** | hypotheses, evidence, uncertainty, research conclusions | How should experimental evidence change what the agent believes and what it tries next? | Hypothesis-Tree Refinement / Arbor; emerging research-state methods |
+| **A5. Predictive Research Judgment** | predicted experiment outcome / value / information gain | Can the agent predict which expensive experiment is worth executing? | FOREAGENT; emerging AI4AI world models / research taste |
+| **A6. Policy Learning from Execution** | model / agent policy | Can executable AI-R&D experience be internalized into weights? | ML-Agent, MLE-RL, MLE-Dojo, AceGRPO, Frontis-MA1 |
+| **A7. Harness / Workflow Self-Optimization** | prompts, tools, context, memory implementation, topology, orchestration | Can AI redesign the machinery around the base model? | ADAS, EvoAgentX, SwarmAgentic, Meta-Harness, Self-Harness |
+| **A8. Improver Learning / Meta-Evolution** | the mechanism that performs improvement | Can the improver learn from previous improvement attempts? | OpenRSI / Frontis-MA1, self-improving evolutionary systems |
+| **A9. Full AutoResearch** | whole hypothesis → experiment → evidence → artifact loop | Can the system autonomously conduct increasingly complete AI research? | AI Scientist, AI Scientist-v2, AIRA_2, Agent Laboratory, AlphaLab |
 
-### Relationship between the branches
+### Why this is different from a standard agent taxonomy
 
-```text
-Executable Environment
-        ↓
-Search / Scaffold ────────────────┐
-        ↓                         │
-Execution Trajectories            │
-   ↙        ↓        ↘            │
-Memory   Policy RL   World Model  │
-   ↘        ↓        ↙            │
-    Better Research Decisions     │
-              ↓                   │
-     Harness / Improver Update ───┘
-              ↓
-        Meta-Evolution
-              ↓
-      Recursive Improvement
-```
+A standard agent survey might ask whether a system has **planning, memory, tools, reflection, or multiple agents**. For Agent4AI, those are implementation components. The more important question is:
 
-The useful distinction is **external versus internal improvement**. Search-based methods improve outputs while leaving the base policy mostly fixed. Execution-grounded learning internalizes task feedback into weights. Memory systems externalize reusable experience. World-model methods try to predict expensive outcomes. Harness optimization changes the machinery around the model. Meta-evolution closes the loop by using search-generated experience to improve the improver that controls later search.
+> **What persistent state changes after an AI experiment, and can that state make the next AI-improvement cycle better?**
 
-## A complementary axis: where does the loop close?
+This lets us distinguish systems that otherwise all look like `LLM + code execution`.
 
-Our P1–P8 taxonomy answers **what is being improved and by what mechanism**. A complementary view, emphasized by the 2026 survey *On the Eve of AI4AI*, is **how much of the improvement loop is actually autonomous**.
+---
 
-Represent an improvement pass as:
+## Memory in Agent4AI: when does it actually count?
+
+**Memory alone is not AI4AI.** It becomes an Agent4AI contribution when it stores or transforms information that directly improves future AI R&D.
+
+We propose three increasingly strong levels:
+
+### M1. Trajectory Memory — *remember what happened*
+
+Store raw or lightly processed research traces:
 
 ```text
-goal → plan → execute → feedback → repair → next pass
+(task, code, config, command, metric, error, log, action sequence)
 ```
 
-Then compare systems along five orthogonal dimensions:
+Typical update:
+
+```text
+new experiment → append trajectory / failure / score
+```
+
+Use case: retrieve a similar previous task or avoid repeating a failed implementation.
+
+Examples: **DS-Agent**, basic episodic memory in MLE agents.
+
+### M2. Experience / Knowledge Memory — *extract what was learned*
+
+Compress trajectories into reusable lessons, skills, strategies, and failure conditions:
+
+```text
+trajectory
+   ↓ reflection / summarization / verifier
+lesson / skill / rule / reusable code pattern
+   ↓ deduplicate + merge + confidence update
+knowledge memory
+```
+
+A useful memory item might look like:
+
+```text
+Context:
+  tabular classification with severe class imbalance
+
+Action:
+  stratified split + class-weighted LightGBM
+
+Evidence:
+  +0.037 validation AUC across 4 seeds
+
+Failure boundary:
+  SMOTE degraded calibration
+
+Confidence:
+  medium-high
+
+Provenance:
+  tasks X, Y, Z
+```
+
+Examples: **ML-Master**, **AIBuildAI-2**, **MLEvolve**, hierarchical skill accumulation.
+
+This is much more relevant to AI4AI than generic conversation memory because the stored object is **research experience**.
+
+### M3. Belief / Epistemic State — *update what the agent thinks is true*
+
+The strongest form is not just remembering actions but updating hypotheses and uncertainty from evidence:
+
+```text
+Hypothesis H
+   ↓ experiment E
+Observation / metric / artifact
+   ↓ evidence interpretation
+Support(H) ↑ / ↓
+Uncertainty(H) ↑ / ↓
+New hypothesis H'
+   ↓
+next experiment
+```
+
+Possible state:
+
+```text
+Hypothesis: augmentation improves low-data robustness
+Evidence_for: E12, E19
+Evidence_against: E23
+Confidence: 0.62
+Known boundary: gain disappears above 50k samples
+Open question: interaction with pretrained encoder scale
+Next discriminating experiment: ...
+```
+
+Examples / early signals: **Toward Generalist Autonomous Research via Hypothesis-Tree Refinement (Arbor)** and research-agent systems that explicitly link hypotheses, artifacts, evidence, and distilled insights.
+
+This **epistemic memory** is especially important for moving from MLE agents to genuine AI research agents.
+
+### A practical memory update loop
+
+For Agent4AI, a good memory system should not simply `append()` everything. A stronger loop is:
+
+```text
+Execute experiment
+      ↓
+Capture trace + result + artifacts
+      ↓
+Evaluate reliability / provenance
+      ↓
+Reflect: what actually changed?
+      ↓
+Extract candidate lesson / evidence
+      ↓
+Compare with existing memory
+   ↙          ↓          ↘
+merge      revise      create
+   ↓          ↓          ↓
+update confidence / scope / provenance
+      ↓
+Retrieve only when relevant to next research decision
+```
+
+Important operations are therefore:
+
+- **Write:** what information is worth retaining?
+- **Credit assignment:** which action actually caused the gain/loss?
+- **Abstraction:** convert one trajectory into a reusable lesson.
+- **Deduplication:** merge semantically equivalent lessons.
+- **Revision:** new experiments can weaken or invalidate old memory.
+- **Scope estimation:** record where a lesson is known to work.
+- **Confidence update:** accumulate supporting / contradicting evidence.
+- **Retrieval:** condition on task, model, dataset, stage, and current hypothesis.
+- **Forgetting:** remove stale or consistently contradicted knowledge.
+
+For the survey, generic agent-memory papers should appear only briefly as mechanism background. The core table should focus on papers where memory is tied to **ML experiments, research trajectories, transferable AI skills, or epistemic state**.
+
+---
+
+## Two orthogonal axes for comparing Agent4AI
+
+The **A1–A9 taxonomy** describes *where improvement happens*. A second axis describes *how closed and recursive the loop is*.
+
+Represent one improvement pass as:
+
+```text
+goal → plan → execute → feedback → state update → next pass
+```
 
 | Dimension | Question |
 |---|---|
-| **Target** | What may the system change: solution, model, data, harness, training recipe, or improver? |
-| **Closure** | Which of plan / execute / feedback / repair are system-owned rather than human-specified? |
-| **Self-reference** | Is the system being improved also the system doing the improving? |
-| **Grounding** | How constrained and externally verifiable is the improvement signal? |
-| **Compounding** | Do improvements transfer, accumulate, or make later improvement more effective? |
+| **Improvement state** | solution / experiment / experience / belief / policy / harness / improver |
+| **Feedback** | metric / logs / verifier / evidence / learned predictor / reviewer |
+| **Closure** | which stages are system-owned rather than human-specified? |
+| **Self-reference** | is the system being improved also doing the improving? |
+| **Grounding** | how externally verifiable is the improvement signal? |
+| **Persistence** | does the gain survive the current run? |
+| **Transfer** | does it help new tasks / datasets / model scales? |
+| **Compounding** | does the improved system become a better improver? |
 
-This prevents overloading the term **recursive self-improvement**. A search scaffold can improve outputs without changing itself; ADAS / Meta-Harness use an outer improver to redesign an agent or harness; Self-Harness removes the stronger external improver but still uses a fixed evaluator; Frontis-MA1 moves further by feeding execution-grounded experience back into the improver used by later search. True RSI would additionally require reliable compounding improvement in the improvement process itself.
+This gives us a more distinctive survey framework than simply grouping papers by agent modules.
+
+---
 
 ## Reliability: the composition gap
 
-Agent4AI is inherently long-horizon: success depends on preserving and validating consequences across repeated plan–execute–feedback–repair cycles. A useful failure mode is the **composition gap**: planning, coding, tool use, evaluation, and repair may each look strong separately, while the coupled end-to-end research loop remains unreliable.
+Agent4AI is inherently long-horizon: success depends on preserving and validating consequences across repeated plan–execute–feedback–state-update cycles. Planning, coding, tool use, evaluation, and repair may each look strong separately while the coupled end-to-end research loop remains unreliable.
 
-For our survey, this suggests evaluating not only final score, but also:
+For our survey, evaluate not only final score but also:
 
-- **reliable horizon:** how long a coupled trajectory remains on-goal;
-- **closure:** which stages are actually autonomous;
-- **error propagation:** whether early local mistakes corrupt later research state;
-- **verification quality:** whether feedback measures genuine progress rather than proxy exploitation;
-- **persistent gain:** whether an improvement survives new tasks, scales, or future generations;
-- **compounding:** whether improved systems become better improvers.
+- **reliable horizon** — how long a coupled trajectory remains on-goal;
+- **state quality** — whether experiment outcomes are converted into correct experience / belief updates;
+- **error propagation** — whether local mistakes corrupt later research state;
+- **verification quality** — whether feedback measures genuine progress rather than proxy exploitation;
+- **persistent gain** — whether improvement survives new tasks or settings;
+- **compounding** — whether improved systems become better improvers.
 
-## Recommended comparison dimensions
-
-For survey tables, classify each Agent4AI method by:
-
-- **Optimization object:** solution / code / experiment / model policy / memory / harness / research strategy / improver.
-- **Feedback source:** scalar metric / execution logs / verifier / evidence / learned predictor / human or reviewer signal.
-- **Adaptation location:** frozen model + scaffold / external memory / test-time learning / SFT / RL / self-modifying harness.
-- **Search structure:** linear refinement / tree / MCTS / graph / population / multi-agent / learned policy.
-- **Experience reuse:** none / in-task memory / cross-task retrieval / distilled knowledge / weight update.
-- **Horizon:** single solution / multi-experiment / project-level / research lifecycle / cross-generation self-improvement.
-- **Closure:** which of plan / execute / feedback / repair are system-owned.
-- **Self-reference:** outer improver / self-modifying system / same improver and improved system.
-- **Compounding evidence:** none / retained artifact / cross-task transfer / persistent policy gain / improved future improver.
+---
 
 ## Positioning relative to existing AI4AI surveys
 
-A nearby 2026 survey, **On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement**, is organized primarily around **long-horizon reliability, closure, model-vs-harness routes, self-reference, and RSI**. Our intended scope is complementary:
+A nearby 2026 survey, **On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement**, focuses strongly on **long-horizon reliability, closure, model-vs-harness routes, self-reference, and RSI**.
 
-| This repository / planned review | On the Eve of AI4AI |
+Our intended review is narrower in object but finer in mechanism:
+
+| Our planned review | Nearby long-horizon / RSI survey |
 |---|---|
-| traces the historical lineage from **AutoML / NAS / learned optimization → Agent4AI** | starts from **long-horizon agents → AI4AI → RSI** |
-| emphasizes **MLE agents, executable AI research, data agents, AutoResearch** | emphasizes **reliable horizon and autonomy closure** |
-| organizes modern work by **P1–P8 method paradigms** | organizes systems by **target / closure / self-reference / grounding / compounding** |
-| treats **world models / research judgment / epistemic state** as a distinct emerging branch | emphasizes the broader **composition gap and reliable execution stack** |
-| keeps a large bibliography and benchmark map for writing a full survey | audits a smaller set of representative systems in depth |
+| primary subject is **AI agents improving AI / AI research** | starts from general long-horizon agents and builds toward AI4AI / RSI |
+| AutoML / NAS are **brief historical lineage only** | not centered on AutoML lineage |
+| detailed taxonomy of **where AI-improvement state updates** | taxonomy emphasizes **closure / self-reference / compounding** |
+| separates **experience memory** from **epistemic / belief-state updating** | treats memory mainly as part of the long-horizon reliability stack |
+| emphasizes **MLE agents, post-training agents, research agents, executable AI R&D** | emphasizes the broader road to recursively self-improving agents |
+| highlights **world models / research judgment / experimental belief update** as an emerging research gap | highlights reliable execution, self-reference, and compounding |
 
-The strongest survey structure is therefore to use **P1–P8 as the main methodological taxonomy**, and use **closure / self-reference / compounding as cross-cutting evaluation axes**.
-
-## Core trajectory
+So the main story should remain:
 
 ```text
-Fixed-space AutoML
+AI Agent for AI
       ↓
-Open code-space search
+search better AI solutions
       ↓
-Execution-grounded MLE agents
+learn from AI experiments
       ↓
-Experience + memory + learned policies
+accumulate transferable AI-R&D experience
       ↓
-World models / research judgment
+update research beliefs from evidence
       ↓
-Harness and improver optimization
+predict which AI experiments are worth running
       ↓
-AutoResearch / AI Scientists
+learn / redesign the agent and harness
       ↓
-Meta-Evolution / RSI
+improve the improver
+      ↓
+full autonomous AI research / recursive improvement
 ```
+
+## Recommended survey-table columns
+
+For each core Agent4AI paper, use columns such as:
+
+`Year | Paper | AI-R&D Task | Improvement State | Search/Policy Mechanism | Execution Feedback | Memory Level (M0–M3) | Weight Update? | Harness Update? | Closure | Self-Reference | Benchmark`
+
+This should make differences between superficially similar MLE agents much easier to see.
 
 ## Maintenance
 
-`recent.md` is intentionally temporary. New papers are collected there quickly, then periodically verified, deduplicated, categorized, and merged into `papers.md`. Benchmark papers should additionally be reflected in `benchmarks.md`.
+`recent.md` is intentionally temporary. New papers are collected there quickly, then periodically verified, deduplicated, categorized, and merged into `papers.md`. Generic memory/tool/agent papers stay out of the core table unless they directly improve AI R&D.
