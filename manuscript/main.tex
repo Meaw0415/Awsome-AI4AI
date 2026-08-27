@@ -1,0 +1,321 @@
+\documentclass[journal]{IEEEtran}
+
+% =============================================================
+% AI4AI Review -- initial manuscript skeleton
+% Compile with: pdflatex -> bibtex -> pdflatex -> pdflatex
+% =============================================================
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\newcommand{\aiivai}{AI4AI}
+\newcommand{\agentfourai}{Agent4AI}
+\newcommand{\TODO}[1]{\textcolor{red}{[TODO: #1]}}
+
+\title{AI for AI: From Automated Machine Learning to Autonomous and Self-Improving AI Research}
+
+\author{Anonymous Authors%
+\thanks{Manuscript in preparation. Author information will be added before submission.}%
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Artificial intelligence has traditionally been developed through a predominantly human-driven loop in which researchers formulate problems, design algorithms, implement systems, run experiments, interpret results, and iteratively improve models. Increasingly, AI itself is entering this loop. Early automated machine learning (AutoML) systems optimized hyperparameters and model pipelines inside human-defined search spaces; neural architecture search and program synthesis expanded automation toward structures and algorithms; meta-learning and learned optimizers enabled improvement procedures to transfer across tasks; and foundation models have made it possible for agents to operate directly over code, repositories, experiments, and scientific hypotheses. These developments are converging toward \emph{AI for AI} (AI4AI): computational systems in which AI participates directly in building, training, evaluating, optimizing, redesigning, or researching AI systems.
+
+This Review traces the evolution of AI4AI from classical AutoML to autonomous machine-learning engineering agents, AI research agents, agent-system optimization, and emerging self-improving systems. Rather than treating these areas as disconnected communities, we organize them around four questions: what part of AI development is automated, what representation is searched or manipulated, what feedback drives improvement, and how experience changes future decisions. We argue that the field is undergoing a broader transition from optimizing \emph{AI artifacts}---such as configurations, architectures, programs, and repositories---toward modeling the \emph{process of AI research itself}, including hypotheses, experimental evidence, uncertainty, and the value of future experiments. We further review the rapidly evolving benchmark landscape and discuss open problems in long-horizon credit assignment, generalization, cost-aware experimentation, evaluator reliability, research-world modeling, and safe recursive improvement.
+\end{abstract}
+
+\begin{IEEEkeywords}
+AI for AI, automated machine learning, AutoML, neural architecture search, machine learning agents, AI scientist, automated research, self-improving AI, meta-learning, algorithm discovery.
+\end{IEEEkeywords}
+
+\section{Introduction}
+\label{sec:introduction}
+
+The development of modern artificial intelligence is itself an optimization and discovery process. A typical research cycle begins with a problem formulation, proceeds through model and algorithm design, implementation, experimentation, and evaluation, and then uses the resulting evidence to determine what should be tried next. Historically, most of this loop has been designed and executed by human researchers. AI methods have instead been treated primarily as the \emph{objects} being improved.
+
+This boundary is now changing. Automated machine learning (AutoML) established that important components of model development could be formulated as machine-executable search problems. Hyperparameter optimization, algorithm selection, and pipeline construction automated decisions that were previously carried out manually \cite{bergstra2012random,thornton2013autoweka,feurer2015autosklearn}. Neural architecture search (NAS) moved the optimization target from configurations to model structures \cite{zoph2017nas,liu2019darts}, while program-search and algorithm-discovery methods began searching over executable learning procedures themselves \cite{real2020automlzero,romeraparedes2024funsearch}. Meta-learning and learned optimization introduced a further level of adaptation: rather than only finding a better model, a system could learn how models should be improved across tasks \cite{andrychowicz2016learning,finn2017maml,metz2022velo}.
+
+Large language models (LLMs) have substantially widened this automation boundary. Code, natural-language instructions, experiment descriptions, logs, papers, and even candidate research hypotheses can now be represented and modified through a common generative interface. LLM-based optimization methods such as OPRO and TextGrad treat language itself as an optimization substrate \cite{yang2023opro,yuksekgonul2024textgrad}, while LLM-guided program search extends evolutionary optimization to open-ended code spaces \cite{romeraparedes2024funsearch}. More recently, machine-learning engineering agents have begun to interact directly with files, repositories, execution environments, and training runs \cite{huang2024mlagentbench,chan2025mlebench,jiang2025aide,nam2025mlestar}. End-to-end systems such as The AI Scientist further expand the loop toward ideation, experimentation, paper writing, and automated review \cite{lu2024aiscientist}.
+
+We use \textbf{AI for AI (AI4AI)} to describe this broader trajectory:
+
+\begin{quote}
+\emph{AI4AI comprises computational systems in which AI participates directly in building, training, evaluating, optimizing, redesigning, or researching AI systems.}
+\end{quote}
+
+This definition deliberately includes both classical AutoML and modern agentic systems. The purpose is not to collapse their differences, but to expose the historical continuity between them. Across generations, the central improvement loop remains recognizable: propose a change, evaluate it, use feedback, and decide what to try next. What changes is the \emph{scope} of the loop, the \emph{representation} being searched, the \emph{feedback} available to the optimizer, and the degree to which the improvement procedure itself can adapt.
+
+This Review is organized around four questions:
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{What is being automated?} Hyperparameters, architectures, algorithms, code, experiments, hypotheses, complete research workflows, or the improver itself?
+    \item \textbf{What is the state or search representation?} A configuration vector, architecture graph, executable program, code repository, experiment history, or research state?
+    \item \textbf{What provides feedback?} A scalar validation score, execution result, structured evaluator, reviewer signal, or experimental evidence?
+    \item \textbf{How is experience reused?} Through warm starts, meta-learning, archives, memory, policy learning, continual adaptation, or self-modification?
+\end{enumerate}
+
+Our central thesis is that AI4AI is evolving from \emph{searching for better AI artifacts} toward \emph{learning the dynamics of AI improvement}. Classical AutoML asks which configuration maximizes validation performance. Agentic ML engineering asks which code change or experiment should be executed next. Research-level AI must additionally reason about what is currently known, what remains uncertain, how new evidence should change beliefs, and which experiment has the greatest future research value. This transition provides a useful conceptual bridge between automated optimization, autonomous research, and self-improving AI.
+
+\section{Foundations: Automating Model Development}
+\label{sec:foundations}
+
+\subsection{Hyperparameter Optimization and Algorithm Configuration}
+The earliest AI4AI systems cast model development as black-box optimization. Given a training procedure and a configuration space $\Lambda$, hyperparameter optimization seeks
+\begin{equation}
+\lambda^{*}=\arg\max_{\lambda\in\Lambda}\; \mathcal{M}(\mathrm{Train}(\lambda)),
+\end{equation}
+where $\mathcal{M}$ is typically a validation metric. Random search demonstrated that simple non-grid exploration can be surprisingly effective in high-dimensional hyperparameter spaces \cite{bergstra2012random}, while Bayesian and model-based optimization introduced more sample-efficient proposal mechanisms. Multi-fidelity methods later incorporated resource allocation, allowing poor configurations to be terminated early.
+
+The conceptual importance of this line of work extends beyond hyperparameter tuning. It established the canonical machine-executable improvement loop
+\begin{equation*}
+\text{propose} \rightarrow \text{train} \rightarrow \text{evaluate} \rightarrow \text{update}.
+\end{equation*}
+This loop remains visible in modern agentic AI4AI systems, although both the proposal space and the feedback become much richer.
+
+\subsection{Automated Machine Learning}
+AutoML expands the optimization target from individual hyperparameters to larger model-development pipelines. Auto-WEKA formulated combined algorithm selection and hyperparameter optimization \cite{thornton2013autoweka}; auto-sklearn added meta-learning and ensembling to improve practical robustness \cite{feurer2015autosklearn}. Other systems explored genetic programming and large-scale pipeline composition.
+
+The defining assumption of this generation is that humans still specify most of the space of legitimate actions. AI decides \emph{which} preprocessing strategy, estimator, or hyperparameter setting to use, but humans largely determine \emph{what may be changed}. This human-defined search boundary is progressively relaxed in later generations of AI4AI.
+
+\section{From Tuning Models to Discovering Them}
+\label{sec:discovery}
+
+\subsection{Neural Architecture Search}
+Neural architecture search shifts the optimization target from model configuration to model structure. Reinforcement-learning-based NAS learns a controller that generates candidate architectures \cite{zoph2017nas}; differentiable methods such as DARTS relax discrete architecture choices into continuous optimization variables \cite{liu2019darts}. Evolutionary and weight-sharing approaches further improve search efficiency.
+
+This transition is important because the representation of the candidate changes from a low-dimensional configuration to a structured object such as a computation graph. Nevertheless, most NAS methods still operate within a human-designed grammar or cell space, and evaluation is still dominated by downstream validation performance.
+
+\subsection{Program and Algorithm Discovery}
+Program-search approaches push the boundary further by treating executable procedures as candidates. AutoML-Zero evolves complete machine-learning algorithms expressed as programs \cite{real2020automlzero}. FunSearch combines an LLM with an evolutionary evaluator loop, using generated programs and execution feedback to discover improved solutions to mathematical problems \cite{romeraparedes2024funsearch}. Such methods make the search space dramatically more expressive: the candidate is no longer merely a model, but an executable algorithm.
+
+A useful historical progression is therefore
+\begin{equation*}
+\text{configuration} \rightarrow \text{architecture} \rightarrow \text{program}.
+\end{equation*}
+Each step increases open-endedness, but also increases the difficulty of verification, attribution, and efficient search.
+
+\section{Learning to Improve AI}
+\label{sec:meta}
+
+\subsection{Meta-Learning}
+Meta-learning asks whether information acquired across tasks can improve future learning. MAML optimizes model parameters such that a small number of gradient steps can adapt effectively to a new task \cite{finn2017maml}. In the context of AI4AI, the key conceptual change is that experience is no longer used only to choose the current artifact; it alters the mechanism by which future artifacts are produced.
+
+\subsection{Learned Optimizers and Population-Based Adaptation}
+Learned optimizers parameterize optimization rules themselves \cite{andrychowicz2016learning}, and large-scale systems such as VeLO investigate whether learned update rules can transfer across broader families of optimization problems \cite{metz2022velo}. Population-based training jointly adapts model parameters and hyperparameters over the course of training. These methods can be viewed as early forms of \emph{improver learning}: the optimization process is partially learned rather than entirely hand-designed.
+
+\section{Foundation Models as General-Purpose Improvement Operators}
+\label{sec:llm}
+
+Foundation models provide a common interface over several artifacts that were previously optimized using distinct techniques: prompts, code, textual specifications, reward functions, experiment descriptions, and research plans. This enables language models to act not only as predictors, but also as proposal mechanisms inside iterative optimization loops.
+
+\subsection{Language Models as Optimizers}
+OPRO formulates optimization as repeated natural-language proposal and evaluation \cite{yang2023opro}. TextGrad generalizes the analogy further by treating textual feedback as a form of gradient-like signal \cite{yuksekgonul2024textgrad}. The general template is
+\begin{equation*}
+(\text{context},\text{candidate},\text{feedback})\rightarrow\text{improved candidate}.
+\end{equation*}
+Compared with conventional black-box optimizers, LLMs can exploit semantic priors and operate over candidates that do not admit a compact numerical parameterization.
+
+\subsection{Language Models as Program-Search Operators}
+When LLM generation is coupled to executable evaluation, language models can serve as mutation or synthesis operators in program search. FunSearch is an early representative example \cite{romeraparedes2024funsearch}. The broader significance is that AI4AI moves from closed, enumerable search spaces toward open-ended generative spaces in which candidate validity and quality must often be determined by execution.
+
+\section{Agentic AI4AI: Autonomous Machine-Learning Engineering}
+\label{sec:mleagents}
+
+Generating an isolated solution is not equivalent to conducting machine-learning development. Real engineering involves inspecting code and data, modifying files, executing training runs, diagnosing failures, interpreting metrics, and deciding what to try next. LLM agents bring these operations into a closed interaction loop.
+
+\subsection{From Single-Shot Generation to Iterative Experimentation}
+MLAgentBench introduced interactive tasks in which agents read and write files, execute code, inspect outputs, and iteratively improve machine-learning systems \cite{huang2024mlagentbench}. MLE-bench scales this evaluation to 75 Kaggle competitions and thereby tests a broader range of competition-scale engineering skills \cite{chan2025mlebench}. These benchmarks make execution central: generated code is useful only if it runs and yields measurable improvement.
+
+The corresponding state is no longer a simple vector. A more realistic abstraction is
+\begin{equation}
+S_t = \{R_t,D_t,E_t,M_t,K_t\},
+\end{equation}
+where $R_t$ denotes the repository state, $D_t$ the data and task context, $E_t$ the experiment history, $M_t$ observed metrics and logs, and $K_t$ any accumulated memory or external knowledge.
+
+\subsection{Search Over Code and Experiments}
+AIDE formulates machine-learning engineering as tree search in code space, explicitly reusing and refining promising solutions \cite{jiang2025aide}. MLE-STAR combines external retrieval with targeted refinement, using ablation-style analysis to identify which components deserve further optimization \cite{nam2025mlestar}. More recent systems increasingly combine search, execution, memory, evolutionary populations, and learned decision policies.
+
+Although implementations differ, they solve a common decision problem:
+\begin{quote}
+\emph{Given the current repository, experiment history, and available budget, what is the highest-value action or experiment to execute next?}
+\end{quote}
+This framing connects classical AutoML and modern MLE agents more directly than a taxonomy based only on agent components such as planning or tool use.
+
+\section{Learning from AI-Development Experience}
+\label{sec:experience}
+
+Long-horizon AI development generates experience that may be reusable across experiments and tasks. A failed augmentation strategy, a successful feature transformation, or a debugging trajectory can contain information that remains valuable after the current run terminates.
+
+\subsection{Memory, Archives, and Knowledge Distillation}
+Current systems employ several forms of experience reuse, including raw trajectory storage, retrieval of similar past cases, population archives, distilled lessons, and reusable skills. The important distinction is between \emph{storing} experience and \emph{learning from} experience. A large log of previous runs can increase context without necessarily producing transferable knowledge.
+
+One useful axis for future comparisons is therefore
+\begin{equation*}
+\text{raw trace} \rightarrow \text{retrievable case} \rightarrow \text{abstracted lesson} \rightarrow \text{learned policy}.
+\end{equation*}
+The later stages increasingly resemble meta-learning, but operate over agentic research trajectories rather than standard supervised tasks.
+
+\subsection{Policy Learning from Execution}
+Executable AI-development environments also make reinforcement learning and imitation learning possible. Instead of relying entirely on prompting and external memory, an agent can internalize patterns from successful and unsuccessful trajectories into its parameters. This direction may ultimately connect the modern agent literature back to the original goal of learned optimization: acquiring a transferable policy for improving AI systems.
+
+\section{Beyond Engineering: Automating the AI Research Loop}
+\label{sec:researchagents}
+
+Machine-learning engineering and AI research overlap but are not identical. Engineering tasks often have a relatively clear external objective, whereas research additionally involves problem selection, novelty, hypothesis formation, interpretation of ambiguous evidence, and decisions about which questions are worth pursuing.
+
+\subsection{From Literature to Hypotheses}
+A research agent must reason about prior work and unresolved questions before any code is written. Candidate outputs can include explanations, hypotheses, mechanisms, and experimental plans rather than only model configurations. This substantially increases ambiguity: two hypotheses may not be comparable by a single immediate scalar metric.
+
+\subsection{Experiment Design, Execution, and Interpretation}
+The AI Scientist demonstrates a full pipeline spanning idea generation, implementation, experiment execution, paper writing, and automated review \cite{lu2024aiscientist}. Its importance for AI4AI is not that every stage is already solved reliably, but that it makes the full research loop an explicit automation target.
+
+At this level, an experiment is valuable for more than improving a benchmark score. A negative result may falsify a hypothesis, reveal a confounder, or change the expected value of future experiments. Consequently, research automation requires a richer notion of feedback than the scalar objective typical of AutoML.
+
+\section{From Artifact Optimization to Epistemic Optimization}
+\label{sec:epistemic}
+
+We propose a useful distinction between two coupled spaces in AI research.
+
+\subsection{Artifact Space}
+The artifact state contains the externally manipulable objects of AI development:
+\begin{equation*}
+S_t^{A}=\{\text{code, models, data, configs, outputs, metrics, papers}\}.
+\end{equation*}
+Most AutoML, NAS, program-search, and MLE-agent systems primarily optimize in this space.
+
+\subsection{Epistemic Space}
+Research additionally maintains an epistemic state:
+\begin{equation*}
+S_t^{E}=\{\text{hypotheses, uncertainty, beliefs, evidence, open questions}\}.
+\end{equation*}
+An experiment $a_t$ generates an observation $o_t$ that can change both states,
+\begin{align}
+S_{t+1}^{A} &= f_A(S_t^{A},a_t,o_t),\\
+S_{t+1}^{E} &= f_E(S_t^{E},a_t,o_t).
+\end{align}
+A research-level agent should therefore evaluate an action not only by its immediate artifact reward, but also by the information it provides and how it changes the value of future actions.
+
+This perspective exposes a limitation of purely reward-driven AI4AI. The loop
+\begin{equation*}
+\text{candidate}\rightarrow\text{execute}\rightarrow\text{score}\rightarrow\text{next candidate}
+\end{equation*}
+is often sufficient for optimization, but only weakly represents why an experiment was informative. A more research-oriented loop is
+\begin{equation*}
+\text{experiment}\rightarrow\text{evidence}\rightarrow\text{belief update}\rightarrow\text{future experiment value}.
+\end{equation*}
+This distinction may become increasingly important as AI4AI moves from benchmark optimization toward open-ended research.
+
+\section{Improving the Improver}
+\label{sec:improver}
+
+A further frontier moves the optimization target one level higher. Instead of only modifying a model, AI4AI systems may optimize prompts, context construction, tools, memory mechanisms, agent topology, orchestration, or even the source code of the harness that performs improvement.
+
+A useful hierarchy is:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Level 0: Artifact improvement.} AI improves a target model, program, or pipeline.
+    \item \textbf{Level 1: Process improvement.} AI improves the workflow used to produce target artifacts.
+    \item \textbf{Level 2: Improver improvement.} AI modifies the agent or optimization mechanism responsible for improvement.
+    \item \textbf{Level 3: Recursive improvement.} The improved improver contributes to generating its own future improvements.
+\end{itemize}
+
+This hierarchy helps distinguish genuine recursive improvement from ordinary iterative optimization. It also raises new evaluation and safety questions because the optimizer can no longer be assumed to remain fixed.
+
+\section{Evaluating AI That Builds AI}
+\label{sec:evaluation}
+
+Evaluation has evolved together with the automation target. A rough progression is
+\begin{equation*}
+\begin{split}
+&\text{single function evaluation}\rightarrow\text{model validation}\rightarrow\text{AutoML pipeline}\\
+&\rightarrow\text{ML experimentation}\rightarrow\text{competition-scale MLE}\\
+&\rightarrow\text{frontier AI R\&D}\rightarrow\text{paper reproduction}\rightarrow\text{open research}.
+\end{split}
+\end{equation*}
+
+MLAgentBench and MLE-bench operationalize executable machine-learning experimentation \cite{huang2024mlagentbench,chan2025mlebench}. As evaluation moves toward research, additional dimensions become necessary: novelty, reproducibility, scientific validity, compute efficiency, robustness, and the extent to which progress generalizes beyond the exact benchmark environment.
+
+A central challenge is evaluator dependence. If an AI4AI system is optimized against an imperfect evaluator, it can exploit the evaluator without making genuine research progress. This is an especially serious issue when the same family of models participates in proposing, judging, and refining research outputs.
+
+\section{A Unified Design Space for AI4AI}
+\label{sec:designspace}
+
+Rather than describing systems only through historical labels such as AutoML, NAS, MLE agent, or AI Scientist, we suggest comparing them along a common set of dimensions.
+
+\subsection{Automation Target}
+\begin{equation*}
+\text{hyperparameter}\rightarrow\text{architecture}\rightarrow\text{algorithm}\rightarrow\text{code}\rightarrow\text{experiment}\rightarrow\text{hypothesis}\rightarrow\text{research process}\rightarrow\text{improver}.
+\end{equation*}
+
+\subsection{Search Representation}
+Candidate representations progress from vectors and graphs toward programs, natural language, code repositories, and eventually joint artifact--epistemic research states.
+
+\subsection{Feedback}
+Feedback ranges from validation metrics and executable tests to structured critics, human or model reviewers, and experimental evidence.
+
+\subsection{Adaptation and Memory}
+Systems differ in whether they optimize independently per task, reuse prior runs through retrieval, learn across tasks, continually update their policies, or modify their own improvement machinery.
+
+\subsection{Human Scaffolding}
+Another important dimension is how much of the workflow remains human specified:
+\begin{equation*}
+\text{fixed pipeline}\rightarrow\text{configurable harness}\rightarrow\text{adaptive workflow}\rightarrow\text{agent-authored workflow}\rightarrow\text{self-improving harness}.
+\end{equation*}
+
+These axes provide the basis for the systematic method table that will accompany the mature version of this Review. \TODO{Map every paper in the repository onto these dimensions and report counts by year and paradigm.}
+
+\section{Open Challenges and Future Directions}
+\label{sec:challenges}
+
+\subsection{Reliable and Non-Gameable Evaluation}
+AI4AI is unusually sensitive to evaluator design because the system is explicitly optimized to improve under the evaluator. Reward hacking, benchmark overfitting, leakage, and grader exploitation can all masquerade as progress. Future evaluations should separate artifact quality from evaluator-specific optimization and should include independent verification whenever possible.
+
+\subsection{Generalization Beyond Benchmark Tasks}
+Strong performance on a fixed family of competitions does not necessarily imply general AI-development capability. A central question is whether learned strategies transfer across datasets, modalities, model scales, codebases, and research problems. Evaluation should therefore increasingly measure cross-task and cross-domain generalization rather than only within-benchmark score.
+
+\subsection{Long-Horizon Credit Assignment}
+Research progress may depend on decisions made many experiments earlier. A failed experiment can be valuable if it eliminates a plausible hypothesis, while an apparently successful local improvement can lead to a dead end. Assigning credit over long research trajectories remains substantially harder than optimizing short-horizon validation metrics.
+
+\subsection{Learning from Negative Results}
+Most optimization systems preferentially preserve successful candidates. Scientific research also depends on understanding what failed, why it failed, which hypotheses were falsified, and which regions of the search space should no longer be explored. Better representations of negative evidence and contradiction are likely to be important for research-level agents.
+
+\subsection{Cost-Aware Experimentation}
+Experiments vary dramatically in compute, latency, and opportunity cost. The relevant objective is therefore not simply expected performance improvement, but research value under a resource budget. This creates a connection to Bayesian experimental design, value of information, and model-based planning.
+
+\subsection{Research World Models}
+Most current AI4AI systems react after executing experiments. A natural future direction is to learn a predictive model of research dynamics,
+\begin{equation}
+(S_t^{A},S_t^{E},a_t)\rightarrow(\hat{o}_t,\widehat{\Delta S_t^{E}},\hat{V}_{\mathrm{future}}),
+\end{equation}
+where the system predicts not only the likely experimental outcome but also how that outcome would change beliefs and the value of future research actions. Such a \emph{research world model} would differ from a conventional environment model because its core target is epistemic transition rather than only observation prediction.
+
+\subsection{Open-Endedness Versus Verifiability}
+As the candidate space becomes more open-ended, verification becomes harder. Closed AutoML spaces are relatively easy to score but restrict novelty; open research spaces permit qualitatively new solutions but resist reliable automatic evaluation. Managing this tension is likely to be a defining challenge for autonomous research systems.
+
+\subsection{Safety of Self-Improving Systems}
+When the optimization target includes the agent or harness itself, assumptions about a fixed optimizer no longer hold. Important problems include preserving objectives during self-modification, preventing evaluator manipulation, maintaining external auditability, controlling resource use, and ensuring that claimed improvements remain independently verifiable.
+
+\section{Outlook}
+\label{sec:outlook}
+
+The history of AI4AI can be interpreted as a progressive expansion of the space that AI is allowed to modify. AutoML searches human-defined configuration spaces. NAS and algorithm discovery expand the candidate from configurations to structures and executable procedures. Meta-learning adapts parts of the improvement mechanism across tasks. Foundation models make language and code general-purpose optimization substrates. Machine-learning agents perform iterative experiments in executable environments. AI research agents extend this loop toward hypotheses, evidence, and scientific communication. The newest systems begin to optimize the agents and harnesses responsible for improvement themselves.
+
+The long-term objective of AI4AI is therefore broader than producing a stronger model. A genuinely autonomous AI researcher must repeatedly answer three coupled questions: \emph{What should be improved next? What experiment or action would provide the most useful evidence? How should that evidence change what is attempted afterward?}
+
+This viewpoint suggests that the frontier is shifting from automated optimization toward automated acquisition of the knowledge required for optimization. Future systems may need to maintain not only code and models, but explicit representations of uncertainty, competing hypotheses, supporting and contradicting evidence, and the expected value of future experiments. Learning these research dynamics may be the step that connects today's automated machine-learning systems to robust, general, and eventually self-improving AI research.
+
+\section*{Acknowledgment}
+\TODO{Add acknowledgments before submission.}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
