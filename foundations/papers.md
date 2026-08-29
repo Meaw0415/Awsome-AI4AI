@@ -1,216 +1,393 @@
 # AI4AI Paper Library
 
-A living paper list for **AI for AI (AI4AI)**. The emphasis is conceptual coverage rather than exhaustive application-specific AutoML.
+A living bibliography for **AI for AI (AI4AI)**: AI systems that **improve, construct, train, optimize, evaluate, redesign, or evolve another AI system — or themselves**.
 
-Legend: **★** = especially important for the survey narrative.
+This definition is intentionally broader than any one application label. **AutoML, NAS, MLE agents, AI-research agents, post-training agents, harness optimizers, and self-evolving agents are downstream manifestations of the same AI4AI idea**, not mutually exclusive top-level fields.
+
+**Inclusion rule.** A paper is core AI4AI when the optimized object is an AI artifact or the process that creates/improves AI: data, features, architecture, hyperparameters, optimizer, objective/reward, algorithm/program, training recipe, model weights, prompt, workflow, agent harness, evaluator, or the improvement mechanism itself.
+
+**Scope cleanup in this revision.**
+
+- Generic **world-model** papers are removed: predictive environment modeling is not AI4AI unless it is explicitly used to improve an AI system or its improver.
+- Generic agent foundations such as ReAct / Tree-of-Thoughts / generic tool-use are not listed merely because later AI4AI agents use them.
+- **Research agent** and **MLE agent** are not used as primary taxonomy branches. A research agent stays only when it automates or improves AI/ML research/development; an MLE agent stays because ML engineering is one AI4AI target.
+- The organization below follows the **developmental paradigms of AI4AI**, from fixed search spaces to recursive/meta-evolution.
+
+Legend: **★** = especially important for the survey narrative / timeline figure.
 
 ---
 
-# 1. Algorithm Selection, Configuration & Early AutoML
+# 0. Survey anchors used to check coverage
 
-## Foundations
+These surveys/books are useful for checking whether the paper list is missing important lineages.
 
-- **1976** — *The Algorithm Selection Problem* — Rice. Foundational formulation of choosing algorithms based on problem characteristics.
-- **1998** — *Sequential Model-Based Optimization for General Algorithm Configuration* precursors / algorithm configuration literature.
-- **2003** — *Metalearning: Applications to Data Mining* — early meta-learning / algorithm recommendation lineage.
-- **2009** — *ParamILS: An Automatic Algorithm Configuration Framework* — Hutter et al. Automated configuration of algorithm parameters. https://www.cs.ubc.ca/labs/algorithms/Projects/ParamILS/
-- **2011** — ★ *Algorithms for Hyper-Parameter Optimization* — Bergstra et al. TPE and modern HPO framing. https://proceedings.neurips.cc/paper/2011/hash/86e8f7ab32cfd12577bc2619bc635690-Abstract.html
-- **2011** — *Sequential Model-Based Optimization for General Algorithm Configuration (SMAC)* — Hutter et al. Core model-based configuration method. https://www.cs.ubc.ca/labs/algorithms/Projects/SMAC/
-- **2012** — *Random Search for Hyper-Parameter Optimization* — Bergstra & Bengio. https://jmlr.org/papers/v13/bergstra12a.html
-- **2013** — ★ *Auto-WEKA: Combined Selection and Hyperparameter Optimization of Classification Algorithms* — Thornton et al. CASH formulation. https://arxiv.org/abs/1208.3719
-- **2015** — ★ *Efficient and Robust Automated Machine Learning* — auto-sklearn. Feurer et al. Meta-learning + Bayesian optimization + ensembles. https://proceedings.neurips.cc/paper/2015/hash/11d0e6287202fced83f79975ec59a3a6-Abstract.html
-- **2016** — *TPOT: A Tree-based Pipeline Optimization Tool for Automating Machine Learning* — Olson et al. Genetic programming for ML pipelines. https://proceedings.mlr.press/v64/olson_tpot_2016.html
-- **2016** — *Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization* — Li et al. Multi-fidelity resource allocation. https://arxiv.org/abs/1603.06560
-- **2016** — *Taking the Human Out of the Loop: A Review of Bayesian Optimization* — Shahriari et al. https://ieeexplore.ieee.org/document/7352306
-- **2017** — *BOHB: Robust and Efficient Hyperparameter Optimization at Scale* — Falkner et al. Bayesian optimization + Hyperband. https://arxiv.org/abs/1807.01774
-- **2017** — *Google Vizier: A Service for Black-Box Optimization* — Golovin et al. Industrial-scale optimization service. https://dl.acm.org/doi/10.1145/3097983.3098043
-- **2018** — *Auto-Keras: Efficient Neural Architecture Search with Network Morphism* — Jin et al. https://arxiv.org/abs/1806.10282
+## AutoML / NAS / ML workflow automation
+
 - **2019** — ★ *Automated Machine Learning: Methods, Systems, Challenges* — Hutter, Kotthoff, Vanschoren (eds.). https://www.automl.org/book/
-- **2020** — *AutoGluon-Tabular: Robust and Accurate AutoML for Structured Data* — Erickson et al. https://arxiv.org/abs/2003.06505
-- **2020** — *Auto-Sklearn 2.0: Hands-free AutoML via Meta-Learning* — Feurer et al. https://arxiv.org/abs/2007.04074
-- **2021** — *FLAML: A Fast and Lightweight AutoML Library* — Wang et al. Cost-effective AutoML. https://arxiv.org/abs/1911.04706
+- **2019** — *Neural Architecture Search: A Survey* — Elsken et al. https://arxiv.org/abs/1808.05377
+- **2023** — ★ *AutoML in the Age of Large Language Models: Current Challenges, Future Opportunities and Risks*. https://arxiv.org/abs/2306.08107
+- **2024** — *Automated Machine Learning: Past, Present and Future*. https://link.springer.com/article/10.1007/s10462-024-10726-1
+- **2024** — *Advances in Neural Architecture Search*. https://academic.oup.com/nsr/article/11/8/nwae282/7740455
+- **2024** — ★ *Large Language Models for Constructing and Optimizing Machine Learning Workflows: A Survey*. https://arxiv.org/abs/2411.10478
+- **2025** — *Systematic Review on Neural Architecture Search*. https://link.springer.com/article/10.1007/s10462-024-11058-w
+- **2025/26** — *A Literature Review on Automated Machine Learning*. https://link.springer.com/article/10.1007/s10462-025-11397-2
 
-# 2. Neural Architecture Search (NAS)
+## Evolutionary / self-improving AI
 
-## Reinforcement learning / evolutionary NAS
+- **2024** — *Evolutionary Computation in the Era of Large Language Model: Survey and Roadmap*. https://arxiv.org/abs/2401.10034
+- **2026** — ★ *A Survey of Self-Evolving Agents: What, When, How, and Where to Evolve on the Path to Artificial Super Intelligence* — TMLR. https://arxiv.org/abs/2507.21046
+- **2026** — ★ *Self-Improving Agents in the Era of Experience: A Survey of Self- to Meta-Evolution*. https://openreview.net/forum?id=IUltZSgLMm
+- **2026** — *Self-Improvements in Modern Agentic Systems: A Survey*. https://arxiv.org/abs/2607.13104
+- **2026** — *Recursive Self-Improvement in AI: From Bounded Self-Refinement to Autonomous Research Loops*. https://arxiv.org/abs/2607.07663
+- **2026** — *Automated Design of Agentic Systems: A Survey of Algorithms for Searching, Optimizing, and Evolving LLM Agents, Workflows, and Prompts*. https://www.preprints.org/manuscript/202606.0238
 
-- **2016/2017** — ★ *Neural Architecture Search with Reinforcement Learning* — Zoph & Le. https://arxiv.org/abs/1611.01578
-- **2017** — *Designing Neural Network Architectures using Reinforcement Learning* — Baker et al. https://arxiv.org/abs/1611.02167
-- **2017** — *Large-Scale Evolution of Image Classifiers* — Real et al. Evolutionary architecture search. https://arxiv.org/abs/1703.01041
+---
+
+# 1. Paradigm I — Search over explicit configurations: Algorithm Selection, HPO & Classical AutoML
+
+**Core idea:** define a human-specified search/configuration space and let an optimizer choose a better ML configuration.
+
+- **1976** — ★ *The Algorithm Selection Problem* — Rice. Foundational algorithm-selection formulation.
+- **2009** — *ParamILS: An Automatic Algorithm Configuration Framework*. https://www.cs.ubc.ca/labs/algorithms/Projects/ParamILS/
+- **2011** — ★ *Algorithms for Hyper-Parameter Optimization* — TPE. https://proceedings.neurips.cc/paper/2011/hash/86e8f7ab32cfd12577bc2619bc635690-Abstract.html
+- **2011** — *Sequential Model-Based Optimization for General Algorithm Configuration (SMAC)*. https://www.cs.ubc.ca/labs/algorithms/Projects/SMAC/
+- **2012** — *Random Search for Hyper-Parameter Optimization*. https://jmlr.org/papers/v13/bergstra12a.html
+- **2013** — ★ *Auto-WEKA: Combined Selection and Hyperparameter Optimization of Classification Algorithms*. https://arxiv.org/abs/1208.3719
+- **2015** — ★ *Efficient and Robust Automated Machine Learning* — auto-sklearn. https://proceedings.neurips.cc/paper/2015/hash/11d0e6287202fced83f79975ec59a3a6-Abstract.html
+- **2016** — *TPOT: A Tree-based Pipeline Optimization Tool for Automating Machine Learning*. https://proceedings.mlr.press/v64/olson_tpot_2016.html
+- **2016** — *Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization*. https://arxiv.org/abs/1603.06560
+- **2017** — *BOHB: Robust and Efficient Hyperparameter Optimization at Scale*. https://arxiv.org/abs/1807.01774
+- **2017** — *Google Vizier: A Service for Black-Box Optimization*. https://dl.acm.org/doi/10.1145/3097983.3098043
+- **2020** — *AutoGluon-Tabular: Robust and Accurate AutoML for Structured Data*. https://arxiv.org/abs/2003.06505
+- **2020** — *Auto-Sklearn 2.0: Hands-free AutoML via Meta-Learning*. https://arxiv.org/abs/2007.04074
+- **2021** — *FLAML: A Fast and Lightweight AutoML Library*. https://arxiv.org/abs/1911.04706
+
+**Paradigm shift:** optimization moves from choosing among hand-designed configurations to **designing the structures and learning rules themselves**.
+
+---
+
+# 2. Paradigm II — Search over structures: NAS, Pipelines & Architecture Construction
+
+**Core idea:** expand the optimization target from hyperparameters to the structure of the AI model or pipeline.
+
+## RL / evolutionary NAS
+
+- **2016/17** — ★ *Neural Architecture Search with Reinforcement Learning* — Zoph & Le. https://arxiv.org/abs/1611.01578
+- **2017** — *Designing Neural Network Architectures using Reinforcement Learning*. https://arxiv.org/abs/1611.02167
+- **2017** — *Large-Scale Evolution of Image Classifiers*. https://arxiv.org/abs/1703.01041
 - **2017** — *Learning Transferable Architectures for Scalable Image Recognition* — NASNet. https://arxiv.org/abs/1707.07012
 - **2018** — *Regularized Evolution for Image Classifier Architecture Search* — AmoebaNet. https://arxiv.org/abs/1802.01548
 - **2018** — *Efficient Neural Architecture Search via Parameter Sharing* — ENAS. https://arxiv.org/abs/1802.03268
 
 ## Differentiable / efficient NAS
 
-- **2018** — ★ *DARTS: Differentiable Architecture Search* — Liu et al. https://arxiv.org/abs/1806.09055
-- **2018** — *ProxylessNAS: Direct Neural Architecture Search on Target Task and Hardware* — Cai et al. https://arxiv.org/abs/1812.00332
-- **2019** — *MnasNet: Platform-Aware Neural Architecture Search for Mobile* — Tan et al. https://arxiv.org/abs/1807.11626
-- **2019** — *FBNet: Hardware-Aware Efficient ConvNet Design via Differentiable NAS* — Wu et al. https://arxiv.org/abs/1812.03443
-- **2019** — *Once-for-All: Train One Network and Specialize it for Efficient Deployment* — Cai et al. https://arxiv.org/abs/1908.09791
-- **2019** — *Single Path One-Shot Neural Architecture Search with Uniform Sampling* — Guo et al. https://arxiv.org/abs/1904.00420
-- **2020** — *PC-DARTS: Partial Channel Connections for Memory-Efficient Architecture Search* — Xu et al. https://arxiv.org/abs/1907.05737
-- **2020** — *DrNAS: Dirichlet Neural Architecture Search* — Chen et al. https://arxiv.org/abs/2006.10355
+- **2018** — ★ *DARTS: Differentiable Architecture Search*. https://arxiv.org/abs/1806.09055
+- **2018** — *ProxylessNAS: Direct Neural Architecture Search on Target Task and Hardware*. https://arxiv.org/abs/1812.00332
+- **2019** — *MnasNet: Platform-Aware Neural Architecture Search for Mobile*. https://arxiv.org/abs/1807.11626
+- **2019** — *FBNet: Hardware-Aware Efficient ConvNet Design via Differentiable NAS*. https://arxiv.org/abs/1812.03443
+- **2019** — *Once-for-All: Train One Network and Specialize it for Efficient Deployment*. https://arxiv.org/abs/1908.09791
+- **2019** — *Single Path One-Shot Neural Architecture Search with Uniform Sampling*. https://arxiv.org/abs/1904.00420
+- **2020** — *PC-DARTS: Partial Channel Connections for Memory-Efficient Architecture Search*. https://arxiv.org/abs/1907.05737
+- **2020** — *DrNAS: Dirichlet Neural Architecture Search*. https://arxiv.org/abs/2006.10355
+- **2020** — *NAS-Bench-201: Extending the Scope of Reproducible NAS*. https://arxiv.org/abs/2001.00326
 
-## NAS foundations / analysis
+## LLM-assisted architecture / pipeline search
 
-- **2019** — *Neural Architecture Search: A Survey* — Elsken et al. https://arxiv.org/abs/1808.05377
-- **2020** — *Understanding Architectures Learnt by Cell-based Neural Architecture Search* and related NAS-analysis work.
-- **2020** — *NAS-Bench-201: Extending the Scope of Reproducible NAS* — Dong & Yang. https://arxiv.org/abs/2001.00326
+- **2024** — ★ *AutoML-Agent: A Multi-Agent LLM Framework for Full-Pipeline AutoML*. https://arxiv.org/abs/2410.02958
+- **2024** — *AutoM3L: An Automated Multimodal Machine Learning Framework with Large Language Models*. https://arxiv.org/abs/2408.00665
+- **2025** — *Design Principle Transfer in Neural Architecture Search via Large Language Models* — AAAI 2025. https://ojs.aaai.org/index.php/AAAI/article/view/34463
+- **2025** — *LM-Searcher: Cross-domain Neural Architecture Search with LLMs via Unified Numerical Encoding* — EMNLP 2025. https://aclanthology.org/2025.emnlp-main.478/
 
-# 3. Automated Algorithm Discovery, Program Search & Training-Rule Discovery
+**Paradigm shift:** instead of searching only a fixed structure space, AI begins to **learn how to improve AI** and to generate new optimization rules/programs.
 
-- **2017** — *Learning to Optimize Neural Nets* / learned optimizer family — optimizer itself becomes learned.
-- **2018** — *Neural Optimizer Search with Reinforcement Learning* — automated optimizer discovery. https://arxiv.org/abs/1709.07417
-- **2018** — *Learning to Teach with Dynamic Loss Functions* — automated learning objective design lineage.
-- **2019** — *AutoAugment: Learning Augmentation Policies from Data* — Cubuk et al. https://arxiv.org/abs/1805.09501
-- **2019** — *Population Based Augmentation* — Ho et al. https://arxiv.org/abs/1905.05393
-- **2020** — ★ *AutoML-Zero: Evolving Machine Learning Algorithms From Scratch* — Real et al. Searches complete ML algorithms expressed as programs. https://arxiv.org/abs/2003.03384
-- **2020** — *Discovering Neural Nets with Low Kolmogorov Complexity* / program-search approaches to architecture discovery.
-- **2021** — *Symbolic Discovery of Optimization Algorithms* and related program-synthesis approaches to learned optimizers.
-- **2022** — *VeLO: Training Versatile Learned Optimizers by Scaling Up* — Metz et al. https://arxiv.org/abs/2211.09760
-- **2023** — ★ *FunSearch: Mathematical Discoveries from Program Search with Large Language Models* — Romera-Paredes et al. LLM-guided evolutionary program search. https://www.nature.com/articles/s41586-023-06924-6
-- **2025** — ★ *AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery* — LLM-driven evolutionary code search, including improvements to computing infrastructure and algorithms. https://arxiv.org/abs/2506.13131
+---
 
-# 4. Meta-Learning, Learned Optimization & Population-Based Adaptation
+# 3. Paradigm III — Learning the improver: Meta-Learning, Learned Optimizers & Population Adaptation
 
-- **1991–2000s** — early learning-to-learn / meta-learning literature.
-- **2016** — ★ *Learning to Learn by Gradient Descent by Gradient Descent* — Andrychowicz et al. https://arxiv.org/abs/1606.04474
-- **2016** — *RL²: Fast Reinforcement Learning via Slow Reinforcement Learning* — Duan et al. https://arxiv.org/abs/1611.02779
-- **2017** — ★ *Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks (MAML)* — Finn et al. https://arxiv.org/abs/1703.03400
-- **2017** — *Population Based Training of Neural Networks* — Jaderberg et al. Online adaptation of parameters and hyperparameters. https://arxiv.org/abs/1711.09846
-- **2018** — *Reptile: A Scalable Metalearning Algorithm* — Nichol et al. https://arxiv.org/abs/1803.02999
-- **2018** — *Learning to Reinforcement Learn* — meta-RL lineage.
-- **2019** — *Meta-Learning with Implicit Gradients* / scalable gradient-based meta-learning.
+**Core idea:** the improvement rule itself becomes learned or adaptive rather than fixed.
+
+- **2016** — ★ *Learning to Learn by Gradient Descent by Gradient Descent*. https://arxiv.org/abs/1606.04474
+- **2016** — *RL²: Fast Reinforcement Learning via Slow Reinforcement Learning*. https://arxiv.org/abs/1611.02779
+- **2017** — ★ *Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks (MAML)*. https://arxiv.org/abs/1703.03400
+- **2017** — ★ *Population Based Training of Neural Networks*. https://arxiv.org/abs/1711.09846
+- **2017/18** — *Neural Optimizer Search with Reinforcement Learning*. https://arxiv.org/abs/1709.07417
+- **2018** — *Reptile: A Scalable Metalearning Algorithm*. https://arxiv.org/abs/1803.02999
+- **2018** — *Learning to Teach with Dynamic Loss Functions* — automated objective design lineage.
 - **2020** — *Meta-Learning in Neural Networks: A Survey*. https://arxiv.org/abs/2004.05439
 - **2022** — ★ *VeLO: Training Versatile Learned Optimizers by Scaling Up*. https://arxiv.org/abs/2211.09760
 
-# 5. LLMs as Optimizers, Search Operators & Prompt/Reward Designers
+**Paradigm shift:** the target expands from parameters/architectures to **algorithms, objectives, rewards, and executable programs**.
 
-## Prompt optimization
+---
 
-- **2022** — *Large Language Models Are Human-Level Prompt Engineers* — APE / Automatic Prompt Engineer. https://arxiv.org/abs/2211.01910
-- **2023** — ★ *Large Language Models as Optimizers (OPRO)* — Yang et al. Natural-language optimization loop. https://arxiv.org/abs/2309.03409
-- **2023** — *Promptbreeder: Self-Referential Self-Improvement via Prompt Evolution* — Fernando et al. https://arxiv.org/abs/2309.16797
-- **2023** — *Automatic Prompt Optimization with Gradient Descent and Beam Search* / ProTeGi. https://arxiv.org/abs/2305.03495
-- **2024** — *TextGrad: Automatic Differentiation via Text* — textual feedback as gradients for optimization. https://arxiv.org/abs/2406.07496
-- **2024** — *DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines* — automated LM program optimization. https://arxiv.org/abs/2310.03714
+# 4. Paradigm IV — Automated discovery of algorithms, objectives, data policies & programs
 
-## Reward / objective discovery
+**Core idea:** AI proposes executable artifacts and receives objective feedback; the searched object can be a learning algorithm, reward, augmentation policy, program, or training-data policy.
 
-- **2023** — ★ *Eureka: Human-Level Reward Design via Coding Large Language Models* — Ma et al. Evolutionary reward-function generation. https://arxiv.org/abs/2310.12931
-- **2024** — *DrEureka: Language Model Guided Sim-to-Real Transfer* — automatic reward/domain randomization design. https://arxiv.org/abs/2406.01967
-- **2024** — *Language to Rewards for Robotic Skill Synthesis* and related LLM reward-generation work.
+## Training rules / objectives / data policies
 
-## Algorithm / heuristic discovery
+- **2019** — *AutoAugment: Learning Augmentation Policies from Data*. https://arxiv.org/abs/1805.09501
+- **2019** — *Population Based Augmentation*. https://arxiv.org/abs/1905.05393
+- **2020** — ★ *AutoML-Zero: Evolving Machine Learning Algorithms From Scratch*. https://arxiv.org/abs/2003.03384
+- **2023** — ★ *Eureka: Human-Level Reward Design via Coding Large Language Models*. https://arxiv.org/abs/2310.12931
+- **2024** — *DrEureka: Language Model Guided Sim-to-Real Transfer*. https://arxiv.org/abs/2406.01967
+- **2026** — *RF-Agent: Automated Reward Function Design via Language Agent Tree Search*. https://arxiv.org/abs/2602.23876
+- **2026** — *Can Generalist Agents Automate Data Curation?* — closed-loop data policy → train/evaluate → revise. https://arxiv.org/abs/2606.04261
+- **2026** — *Exploring Autonomous Agentic Data Engineering for Model Specialization*. https://arxiv.org/abs/2605.30407
+- **2026** — *CurateEvo: Data-Curation Evolving for Agentic Post-Training*. https://arxiv.org/abs/2607.06140
+- **2026** — *ANDES: Agent Native Data Evolving Synthesis Tool for Autonomous Instruction Alignment*. https://arxiv.org/abs/2606.01279
 
-- **2023** — ★ *FunSearch*. https://www.nature.com/articles/s41586-023-06924-6
-- **2024** — *Evolution through Large Models* / LLM-guided evolutionary algorithm-design lineage.
-- **2025** — ★ *AlphaEvolve*. https://arxiv.org/abs/2506.13131
-- **2026** — *Large Language Models as Optimizers: A Survey of Direct vs. Tool-Augmented Approaches and Their Performance Frontiers*. https://arxiv.org/abs/2606.15577
+## Program / algorithm evolution
 
-# 6. General Agent Foundations Relevant to AI4AI
+- **2023** — ★ *FunSearch: Mathematical Discoveries from Program Search with Large Language Models* — Nature. https://www.nature.com/articles/s41586-023-06924-6
+- **2025** — ★ *AlphaEvolve: A Coding Agent for Scientific and Algorithmic Discovery*. https://arxiv.org/abs/2506.13131
+- **2025/26** — ★ *ShinkaEvolve: Towards Open-Ended and Sample-Efficient Program Evolution* — ICLR 2026. https://arxiv.org/abs/2509.19349
+- **2026** — *AdaEvolve: Adaptive LLM Driven Zeroth-Order Optimization*. https://arxiv.org/abs/2602.20133
+- **2026** — ★ *MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery*. https://arxiv.org/abs/2606.06473
 
-These are not specifically AI4AI, but provide mechanisms heavily reused by research agents.
+**Paradigm shift:** LLMs turn natural language/code generation into a general-purpose **optimization operator** over many AI artifacts.
 
-- **2022** — ★ *ReAct: Synergizing Reasoning and Acting in Language Models* — Yao et al. https://arxiv.org/abs/2210.03629
-- **2023** — *Reflexion: Language Agents with Verbal Reinforcement Learning* — Shinn et al. https://arxiv.org/abs/2303.11366
-- **2023** — *Tree of Thoughts: Deliberate Problem Solving with Large Language Models* — Yao et al. https://arxiv.org/abs/2305.10601
-- **2023** — *Voyager: An Open-Ended Embodied Agent with Large Language Models* — lifelong skill library and automatic curriculum. https://arxiv.org/abs/2305.16291
-- **2023** — *Generative Agents: Interactive Simulacra of Human Behavior* — memory/reflection/planning architecture. https://arxiv.org/abs/2304.03442
-- **2023** — *Toolformer: Language Models Can Teach Themselves to Use Tools* — Schick et al. https://arxiv.org/abs/2302.04761
-- **2024** — *Self-Discover: Large Language Models Self-Compose Reasoning Structures* — adaptive reasoning structures. https://arxiv.org/abs/2402.03620
+---
 
-# 7. Autonomous ML Engineering Agents
+# 5. Paradigm V — Language models as optimizers of prompts, programs & AI workflows
 
-- **2023** — ★ *MLAgentBench: Evaluating Language Agents on Machine Learning Experimentation* — Huang et al. Agent reads/writes files, runs experiments, observes metrics, iterates. https://arxiv.org/abs/2310.03302
-- **2024** — ★ *MLE-bench: Evaluating Machine Learning Agents on Machine Learning Engineering* — 75 Kaggle competitions. https://arxiv.org/abs/2410.07095
-- **2024** — ★ *AIDE: AI-Driven Exploration in the Space of Code* — tree-search-like iterative code generation/evaluation scaffold used strongly on MLE-bench. https://github.com/WecoAI/aideml
-- **2024/2025** — ★ *RE-Bench: Evaluating Frontier AI R&D Capabilities of Language Model Agents against Human Experts* — realistic open-ended AI R&D environments. https://arxiv.org/abs/2411.15114
-- **2025–2026** — MLE-bench agent systems and harnesses including increasingly explicit experiment memory, candidate populations, code-evolution, planning, and resource allocation; track leaderboard systems separately from peer-reviewed methodology.
+**Core idea:** replace hand-designed local search operators with language-model proposal + feedback loops.
 
-# 8. AI Research Agents / AI Scientists
+## Prompt / instruction optimization
 
-## Literature, ideation and research planning
+- **2022** — *Large Language Models Are Human-Level Prompt Engineers* — APE. https://arxiv.org/abs/2211.01910
+- **2023** — *Automatic Prompt Optimization with Gradient Descent and Beam Search* — ProTeGi. https://arxiv.org/abs/2305.03495
+- **2023** — ★ *Large Language Models as Optimizers (OPRO)*. https://arxiv.org/abs/2309.03409
+- **2023** — ★ *Promptbreeder: Self-Referential Self-Improvement via Prompt Evolution*. https://arxiv.org/abs/2309.16797
+- **2024** — ★ *DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines*. https://arxiv.org/abs/2310.03714
+- **2024** — ★ *TextGrad: Automatic Differentiation via Text*. https://arxiv.org/abs/2406.07496
+- **2025** — *GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning*. https://arxiv.org/abs/2507.19457
 
-- **2023** — *ResearchRabbit / Semantic Scholar-style retrieval agents* are useful tooling precursors but not autonomous researchers.
-- **2024** — ★ *ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models* — literature-grounded research ideation. https://arxiv.org/abs/2404.07738
-- **2024** — *SciMON: Scientific Inspiration Machines Optimized for Novelty* — scientific idea generation / novelty-oriented systems lineage.
-- **2024** — *MOOSE: A Multi-Agent Framework for Open-Ended Scientific Discovery* and related hypothesis-generation agents.
+## From prompt optimization to agent-system optimization
 
-## End-to-end AI scientist systems
+- **2024** — ★ *Automated Design of Agentic Systems (ADAS)*. https://arxiv.org/abs/2408.08435
+- **2024** — *GPTSwarm: Language Agents as Optimizable Graphs*. https://arxiv.org/abs/2402.16823
+- **2024** — *AFlow: Automating Agentic Workflow Generation*. https://arxiv.org/abs/2410.10762
+- **2024/25** — ★ *Symbolic Learning Enables Self-Evolving Agents*. https://arxiv.org/abs/2406.18532
+- **2025** — *ScoreFlow: Mastering LLM Agent Workflows via Score-Based Preference Optimization*. https://arxiv.org/abs/2502.04306
+- **2025** — *Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies*. https://arxiv.org/abs/2502.02533
+- **2025** — *MAS-ZERO: Designing Multi-Agent Systems with Zero Supervision*. https://arxiv.org/abs/2505.14996
+- **2025** — *EvoAgentX: An Automated Framework for Evolving Agentic Workflows*. https://arxiv.org/abs/2507.03616
+- **2025** — *SwarmAgentic: Towards Fully Automated Agentic System Generation via Swarm Intelligence* — EMNLP 2025. https://aclanthology.org/2025.emnlp-main.93/
 
-- **2024** — ★ *The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery* — Lu et al., Sakana AI. Idea generation, coding, experiments, paper writing, automated review. https://arxiv.org/abs/2408.06292
-- **2024/2025** — ★ *Agent Laboratory: Using LLM Agents as Research Assistants* — multi-agent research workflow spanning literature review, experimentation and writing. https://arxiv.org/abs/2501.04227
-- **2025** — ★ *Towards an AI Co-Scientist* — multi-agent scientific reasoning and hypothesis generation system. https://research.google/blog/accelerating-scientific-breakthroughs-with-an-ai-co-scientist/
-- **2025** — *AI-Researcher / Scientist-agent systems* — a growing family of systems automating ideation → experiment → writing loops.
-- **2025** — ★ *PaperBench: Evaluating AI's Ability to Replicate AI Research* — although a benchmark, it strongly shapes the definition of end-to-end research capability. https://openai.com/index/paperbench/
+**Paradigm shift:** the optimization target becomes the **whole AI-development process**, with execution feedback and long-horizon agents closing the loop.
 
-# 9. Self-Improving, Evolutionary & Open-Ended Agents
+---
 
-- **2017** — ★ *Population Based Training of Neural Networks* — population-level continual adaptation. https://arxiv.org/abs/1711.09846
-- **2019** — *POET: Paired Open-Ended Trailblazer* — co-evolution of environments and agents; important open-endedness precursor. https://arxiv.org/abs/1901.01753
-- **2021** — *Open-Ended Learning Leads to Generally Capable Agents* — DeepMind XLand. https://arxiv.org/abs/2107.12808
-- **2023** — ★ *Promptbreeder* — prompt-level self-referential evolution. https://arxiv.org/abs/2309.16797
-- **2023** — *Voyager* — curriculum + skill-library accumulation. https://arxiv.org/abs/2305.16291
-- **2023** — ★ *FunSearch* — evolutionary population + LLM code generation + evaluator. https://www.nature.com/articles/s41586-023-06924-6
-- **2025** — ★ *Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents* — self-modifying agents where modifications are validated empirically. https://arxiv.org/abs/2505.22954
-- **2025** — ★ *AlphaEvolve* — evolutionary coding agent that can improve algorithms and parts of AI infrastructure. https://arxiv.org/abs/2506.13131
+# 6. Paradigm VI — Agentic closed-loop AI development: from AutoML to AI4MLE / autonomous AI building
 
-# 10. World Models, Experience Models & Learned Research Dynamics
+**Core idea:** an agent directly edits data/code/models, runs training/evaluation, reads real execution feedback, and iterates. This is the modern **AI4MLE / Agent4AI** branch.
 
-This is the most speculative but potentially most important bridge to the next generation of AI4AI.
+## Early executable ML/data agents
 
-## World-model foundations
+- **2023/24** — ★ *MLAgentBench: Evaluating Language Agents on Machine Learning Experimentation*. https://arxiv.org/abs/2310.03302
+- **2024** — ★ *DS-Agent: Automated Data Science by Empowering LLMs with Case-Based Reasoning*. https://arxiv.org/abs/2402.17453
+- **2024** — *Data Interpreter: An LLM Agent for Data Science*. https://arxiv.org/abs/2402.18679
+- **2024** — *AutoAgents: Generating Specialized Agents for End-to-End Machine Learning Pipelines*. https://arxiv.org/abs/2410.03521
+- **2024** — *AutoKaggle: A Multi-Agent Framework for Autonomous Data Science Competitions*. https://arxiv.org/abs/2410.20424
+- **2024** — ★ *SELA: Tree-Search Enhanced LLM Agents for Automated Machine Learning*. https://arxiv.org/abs/2410.17238
+- **2024** — *AutoML-Agent: A Multi-Agent LLM Framework for Full-Pipeline AutoML*. https://arxiv.org/abs/2410.02958
+- **2024** — *LAMBDA: A Large Model Based Data Agent*. https://arxiv.org/abs/2407.17535
 
-- **2018** — ★ *World Models* — Ha & Schmidhuber. Learn compact predictive dynamics for planning/control. https://arxiv.org/abs/1803.10122
-- **2020** — *Dreamer: Reinforcement Learning with Latent Dynamics Models* — model-based planning via learned latent dynamics. https://arxiv.org/abs/1912.01603
-- **2023** — *Mastering Diverse Domains through World Models (DreamerV3)* — Hafner et al. https://arxiv.org/abs/2301.04104
+## Search / refinement / memory for MLE
 
-## Agent / research world models
+- **2025** — ★ *AIDE: AI-Driven Exploration in the Space of Code*. https://arxiv.org/abs/2502.13138
+- **2025** — *I-MCTS: Enhancing Agentic AutoML via Introspective Monte Carlo Tree Search*. https://arxiv.org/abs/2502.14693
+- **2025** — *MLZero: A Multi-Agent System for End-to-end Machine Learning Automation*. https://arxiv.org/abs/2505.13941
+- **2025** — ★ *R&D-Agent: Automating Data-Driven AI Solution Building Through LLM-Powered Automated Research, Development, and Evolution*. https://arxiv.org/abs/2505.14738
+- **2025** — ★ *ML-Agent: Reinforcing LLM Agents for Autonomous Machine Learning Engineering*. https://arxiv.org/abs/2505.23723
+- **2025** — ★ *MLE-STAR: Machine Learning Engineering Agent via Search and Targeted Refinement*. https://arxiv.org/abs/2506.15692
+- **2025** — ★ *ML-Master: Towards AI-for-AI via Integration of Exploration and Reasoning*. https://arxiv.org/abs/2506.16499
+- **2025** — *AutoMind: Adaptive Knowledgeable Agent for Automated Data Science*. https://arxiv.org/abs/2506.10974
+- **2025** — *AI Research Agents for Machine Learning: Search, Exploration, and Generalization in MLE-bench*. https://arxiv.org/abs/2507.02554
+- **2025/26** — ★ *DataMind: Scaling Generalist Executable Data-Analytic Agents*. https://arxiv.org/abs/2509.25084
 
-- **2025–2026** — emerging work on **agent world models**, **experience models**, and learned predictions of action outcomes for long-horizon agents.
-- **AAWM / Agent-Aware World Model** — track as relevant to learned agent-environment dynamics and research-action prediction.
+## 2026 AI4MLE: prediction, knowledge accumulation, self-evolution
 
-The key AI4AI question is not only whether we can predict an environment observation, but whether we can learn:
+- **2026** — *FOREAGENT: Can We Predict Before Executing Machine Learning Agents?* https://arxiv.org/abs/2601.05930
+- **2026** — *ML-Master 2.0: Toward Ultra-Long-Horizon Agentic Science*. https://arxiv.org/abs/2601.10402
+- **2026** — *Reasoning as Gradient: Scaling MLE Agents Beyond Tree Search*. https://arxiv.org/abs/2603.01692
+- **2026** — ★ *AIBuildAI: An AI Agent for Automatically Building AI Models*. https://arxiv.org/abs/2604.14455
+- **2026** — ★ *AIBuildAI-2: A Knowledge-Enhanced Agent for Automatically Building AI Models*. https://arxiv.org/abs/2605.27873
+- **2026** — *DataMaster: Data-Centric Autonomous AI Research*. https://arxiv.org/abs/2605.10906
+- **2026** — ★ *MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery*. https://arxiv.org/abs/2606.06473
+- **2026** — *Hierarchical Accumulation of Skills for Transfer-Efficient ML Engineering*. https://arxiv.org/abs/2606.30911
 
-> `research_state + proposed_experiment -> result + belief_change + future_research_value`.
+## Model training / post-training as an AI4AI target
 
-This differs from conventional world models because the latent state must include both **artifacts** and **epistemic beliefs**.
+- **2026** — *FT-Dojo: Towards Autonomous LLM Fine-Tuning with Language Agents*. https://arxiv.org/abs/2603.01712
+- **2026** — *AceGRPO: Adaptive Curriculum Enhanced Group Relative Policy Optimization for Autonomous Machine Learning Engineering*. https://arxiv.org/abs/2602.07906
+- **2026** — *Agent^2 RL-Bench: Can LLM Agents Engineer Agentic RL Post-Training?* https://arxiv.org/abs/2604.10547
+- **2026** — ★ *AutoTrainess: Teaching Language Models to Improve Language Models Autonomously*. https://arxiv.org/abs/2606.31551
+- **2026** — *ANDES: Agent Native Data Evolving Synthesis Tool for Autonomous Instruction Alignment*. https://arxiv.org/abs/2606.01279
 
-# 11. Scientific Discovery Agents Outside AI Research
+## Full-cycle AI research/development (included only when the target is AI/ML improvement)
 
-These are useful because they often solve harder evidence-grounding problems than current AI-research agents.
+- **2024** — ★ *The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery* — its demonstrated loop includes automated ML research. https://arxiv.org/abs/2408.06292
+- **2025** — *The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search*. https://arxiv.org/abs/2504.08066
+- **2026** — *AIRA_2: Overcoming Bottlenecks in AI Research Agents*. https://arxiv.org/abs/2603.26499
+- **2026** — *Toward Autonomous Long-Horizon Engineering for ML Research*. https://arxiv.org/abs/2604.13018
+- **2026** — *Towards End-to-End Automation of AI Research*. https://arxiv.org/abs/2606.15497
+- **2026** — *AlphaLab: Autonomous Multi-Agent Research Across Optimization Domains with Frontier LLMs*. https://arxiv.org/abs/2604.08590
 
-- **2023–2026** — autonomous chemistry laboratories / self-driving labs.
-- **2023–2026** — LLM agents for materials discovery.
-- **2024–2026** — biomedical hypothesis generation and experimental agents.
-- **2025** — *From AI for Science to Agentic Science: A Survey on Autonomous Scientific Discovery*. https://arxiv.org/abs/2508.14111
+**Paradigm shift:** the agent no longer only improves an external model/pipeline; its **own prompt, memory, tools, workflow, harness, and source code become optimization targets**.
 
-For this survey, these should be used primarily as **methodological analogues** for experimental planning, physical feedback, uncertainty, and evidence-based iteration rather than treated as the main scope.
+---
 
-# 12. Evaluation, Verification & Scientific Reliability
+# 7. Paradigm VII — AI designs and improves AI agents: Workflow, Harness & Runtime Optimization
 
-- **2024** — *MLE-bench* — performance-oriented ML engineering evaluation. https://arxiv.org/abs/2410.07095
-- **2024/2025** — *RE-Bench* — AI-R&D progress under realistic time budgets, with expert comparison. https://arxiv.org/abs/2411.15114
-- **2025** — *PaperBench* — research replication and rubric-based grading. https://openai.com/index/paperbench/
-- **2026** — *Autonomous Research Agents: A Survey of AI Scientists and the Verification Gap* — argues that producing research artifacts and verifying claims are different capabilities. https://arxiv.org/abs/2608.05179
+**Core idea:** the AI system itself becomes an editable artifact. This is a more direct AI4AI loop than generic agent use.
 
-# 13. Candidate conceptual families for the survey
+## Workflow / topology evolution
 
-Rather than grouping only by chronology, we should eventually code every paper with the following columns:
+- **2024** — ★ *Automated Design of Agentic Systems (ADAS)*. https://arxiv.org/abs/2408.08435
+- **2024** — *GPTSwarm: Language Agents as Optimizable Graphs*. https://arxiv.org/abs/2402.16823
+- **2024** — *AFlow: Automating Agentic Workflow Generation*. https://arxiv.org/abs/2410.10762
+- **2024/25** — ★ *Symbolic Learning Enables Self-Evolving Agents*. https://arxiv.org/abs/2406.18532
+- **2025** — *ScoreFlow: Mastering LLM Agent Workflows via Score-Based Preference Optimization*. https://arxiv.org/abs/2502.04306
+- **2025** — *Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies*. https://arxiv.org/abs/2502.02533
+- **2025** — *MAS-ZERO: Designing Multi-Agent Systems with Zero Supervision*. https://arxiv.org/abs/2505.14996
+- **2025** — *EvoAgentX: An Automated Framework for Evolving Agentic Workflows*. https://arxiv.org/abs/2507.03616
+- **2025** — *SwarmAgentic: Towards Fully Automated Agentic System Generation via Swarm Intelligence*. https://aclanthology.org/2025.emnlp-main.93/
+
+## Harness / runtime as the optimization target
+
+- **2026** — ★ *Meta-Harness: End-to-End Optimization of Model Harnesses*. https://arxiv.org/abs/2603.28052
+- **2026** — ★ *Self-Harness: Harnesses That Improve Themselves*. https://arxiv.org/abs/2606.09498
+- **2026** — *Retrospective Harness Optimization: Improving LLM Agents via Self-Preference over Trajectory Rollouts*. https://arxiv.org/abs/2606.05922
+- **2026** — *Better Harnesses, Smaller Models: Building 90% Cheaper Agents via Automated Harness Adaptation*. https://arxiv.org/abs/2607.08938
+- **2026** — ★ *Continual Harness: Online Adaptation for Self-Improving Foundation Agents*. https://arxiv.org/abs/2605.09998
+- **2026** — *Adaptive Auto-Harness: Sustained Self-Improvement for Agentic System Deployment on Open-Ended Task Streams*. https://arxiv.org/abs/2606.01770
+- **2026** — ★ *MOSS: Self-Evolution through Source-Level Rewriting in Autonomous Agent Systems*. https://arxiv.org/abs/2605.22794
+- **2026** — *JudgeFlow: Agentic Workflow Optimization via Block Judge*. https://arxiv.org/abs/2601.07477
+- **2026** — ★ *Harness-R1: Learning to Edit Executable Runtime Harnesses from Agent Failure Trajectories*. https://arxiv.org/abs/2608.02276
+- **2026** — *AgentDevel: Reframing Self-Evolving LLM Agents as Release Engineering*. https://arxiv.org/abs/2601.04620
+
+**Paradigm shift:** optimization progresses from improving the task agent to improving the **mechanism that performs improvement**.
+
+---
+
+# 8. Paradigm VIII — Persistent self-improvement, recursive AI & meta-evolution
+
+**Core idea:** improvements persist across rounds; increasingly, the improver, evaluator, or meta-level policy is itself exposed to improvement.
+
+## Early self-evolving / self-referential systems
+
+- **2023** — ★ *Promptbreeder: Self-Referential Self-Improvement via Prompt Evolution*. https://arxiv.org/abs/2309.16797
+- **2024/25** — ★ *Symbolic Learning Enables Self-Evolving Agents*. https://arxiv.org/abs/2406.18532
+- **2025** — *SICA: A Self-Improving Coding Agent* — ICLR 2025 Workshop on Scaling Self-Improving Foundation Models. https://openreview.net/forum?id=rShJCyLsOr
+- **2025** — ★ *Gödel Agent: A Self-Referential Agent Framework for Recursively Self-Improvement* — ACL 2025. https://aclanthology.org/2025.acl-long.1354/
+- **2025** — ★ *Darwin Gödel Machine: Open-Ended Evolution of Self-Improving Agents*. https://arxiv.org/abs/2505.22954
+- **2025** — *Huxley-Gödel Machine: Human-Level Coding Agent Development by an Approximation of the Optimal Self-Improving Machine*. https://arxiv.org/abs/2510.21614
+- **2025** — *Live-SWE-agent: Can Software Engineering Agents Self-Evolve on the Fly?* https://arxiv.org/abs/2511.13646
+
+## 2026: from self-evolution to meta-evolution
+
+- **2026** — ★ *Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing*. https://arxiv.org/abs/2602.04837
+- **2026** — ★ *Hyperagents* — self-referential task + meta agent in an editable program. https://arxiv.org/abs/2603.19461
+- **2026** — *CORAL: Towards Autonomous Multi-Agent Evolution for Open-Ended Discovery*. https://arxiv.org/abs/2604.01658
+- **2026** — *Recursive Self-Evolving Agents via Held-Out Selection*. https://arxiv.org/abs/2606.28374
+- **2026** — ★ *The Red Queen Gödel Machine: Co-Evolving Agents and Their Evaluators*. https://arxiv.org/abs/2606.26294
+- **2026** — ★ *Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering* / OpenRSI. https://arxiv.org/abs/2607.28568
+- **2026** — *Recuris: Recursive Experiential-Working Memory Evolution for Long-Horizon Agent Harnesses*. https://arxiv.org/abs/2608.24876
+- **2026** — *Meta^n: Recursive Self-Improvement through Emergent Depth*. https://arxiv.org/abs/2608.24735
+
+### Useful distinction for the review
+
+- **Self-refinement:** improves the current output, but the system is unchanged next round.
+- **Persistent self-improvement:** updates weights, memory, skills, prompts, workflow, harness, or source code and carries the change forward.
+- **Recursive / meta-improvement:** the mechanism that proposes/selects/evaluates future improvements is itself an optimization target.
+
+This distinction is more useful for AI4AI than treating every self-reflection or world-model paper as self-improvement.
+
+---
+
+# 9. Paradigm IX — Evaluation environments that close the AI4AI loop
+
+Benchmarks are not methods, but they are critical because modern AI4AI needs **executable feedback**. They change what can be optimized and trained.
+
+## ML engineering / AI building
+
+- **2023/24** — ★ *MLAgentBench: Evaluating Language Agents on Machine Learning Experimentation*. https://arxiv.org/abs/2310.03302
+- **2024** — ★ *MLE-bench: Evaluating Machine Learning Agents on Machine Learning Engineering*. https://arxiv.org/abs/2410.07095
+- **2024/25** — *RE-Bench: Evaluating Frontier AI R&D Capabilities of Language Model Agents against Human Experts*. https://arxiv.org/abs/2411.15114
+- **2025** — *MLGym: A New Framework and Benchmark for Advancing AI Research Agents*. https://arxiv.org/abs/2502.14499
+- **2025** — *MLE-Dojo: Interactive RL Environment for Machine Learning Engineering*. https://arxiv.org/abs/2505.07782
+- **2025** — *MLR-Bench: Evaluating AI Agents on Open-Ended Machine Learning Research*. https://arxiv.org/abs/2505.19955
+- **2025** — *EXP-Bench: Can AI Conduct AI Research Experiments?* https://arxiv.org/abs/2505.24785
+- **2025** — *ResearchCodeBench: Benchmarking LLMs on Implementing Novel Machine Learning Research Code*. https://arxiv.org/abs/2506.02314
+- **2025** — *PaperBench: Evaluating AI's Ability to Replicate AI Research*. https://arxiv.org/abs/2504.01848
+
+## 2026: training, generalization & recursive-improvement evaluation
+
+- **2026** — *DSGym: A Holistic Framework for Evaluating and Training Data Science Agents*. https://arxiv.org/abs/2601.16344
+- **2026** — *AIRS-Bench: a Suite of Tasks for Frontier AI Research Science Agents*. https://arxiv.org/abs/2602.06855
+- **2026** — *ResearchGym: Evaluating Language Model Agents on Real-World AI Research*. https://arxiv.org/abs/2602.15112
+- **2026** — *PostTrainBench: Can LLM Agents Automate LLM Post-Training?* https://arxiv.org/abs/2603.08640
+- **2026** — *Agent^2 RL-Bench: Can LLM Agents Engineer Agentic RL Post-Training?* https://arxiv.org/abs/2604.10547
+- **2026** — *FML-bench: A Controlled Study of AI Research Agent Strategies from the Perspective of Search Dynamics*. https://arxiv.org/abs/2605.17373
+- **2026** — ★ *MLS-Bench: A Holistic and Rigorous Assessment of AI Systems on Building Better AI*. https://arxiv.org/abs/2605.08678
+- **2026** — *NatureBench: Can Coding Agents Match the Published SOTA of Nature-Family Papers?* https://arxiv.org/abs/2606.24530
+- **2026** — *RSIBench-Data* — recursive-improvement-oriented data-agent evaluation. https://arxiv.org/abs/2607.25886
+
+---
+
+# 10. Compact developmental timeline for the review figure
+
+| Stage | Approx. period | What AI optimizes | Representative milestones |
+|---|---:|---|---|
+| **Configuration search** | 2009–2016 | algorithms, hyperparameters | ParamILS, SMAC, TPE, Auto-WEKA, auto-sklearn, Hyperband |
+| **Structure search** | 2016–2020 | architectures, pipelines | NAS, NASNet, ENAS, DARTS, Once-for-All |
+| **Learned improvement rules** | 2016–2022 | optimizer / adaptation rule | Learning-to-Learn, MAML, PBT, VeLO |
+| **Program & objective discovery** | 2019–2023 | augmentation, algorithms, rewards, programs | AutoAugment, AutoML-Zero, Eureka, FunSearch |
+| **LLM as optimizer** | 2022–2024 | prompts, code, workflows | APE, OPRO, Promptbreeder, DSPy, TextGrad, ADAS |
+| **Agentic AI development** | 2023–2026 | full ML lifecycle | MLAgentBench, DS-Agent, SELA, AIDE, MLE-STAR, ML-Master, AIBuildAI-2, MLEvolve, AutoTrainess |
+| **Agent / harness optimization** | 2024–2026 | prompts + tools + memory + workflow + runtime code | ADAS, AFlow, Meta-Harness, Self-Harness, Continual Harness, MOSS, Harness-R1 |
+| **Recursive / meta-evolution** | 2025–2026 | agent + improver + evaluator | Gödel Agent, Darwin Gödel Machine, Hyperagents, Group-Evolving Agents, Red Queen Gödel Machine, Frontis-MA1/OpenRSI |
+
+The high-level trend is therefore not simply **AutoML → research agents**. A cleaner AI4AI narrative is:
+
+```text
+fixed search space
+      ↓
+search model / pipeline structure
+      ↓
+learn the improvement rule
+      ↓
+generate programs / objectives
+      ↓
+LLM becomes a general optimizer
+      ↓
+agent closes the build–execute–evaluate loop
+      ↓
+agent optimizes its own workflow / harness
+      ↓
+recursive and meta-level improvement
+```
+
+---
+
+# 11. Suggested coding fields for the review database
+
+To support a future quantitative table/figure, code every paper along mechanism-centric rather than application-centric dimensions:
 
 | Field | Meaning |
 |---|---|
-| Year | publication/preprint year |
-| Automation target | HPO / architecture / algorithm / code / experiment / hypothesis / full research |
-| Search representation | vector / graph / program / natural language / repository / research state |
-| Proposal mechanism | BO / RL / evolution / gradient / LLM / multi-agent / world model |
-| Feedback | validation metric / runtime / execution / judge / experimental evidence |
-| Memory | none / archive / meta-features / trajectory memory / learned state |
-| Adaptation level | per-task / cross-task / continual / self-modifying |
-| Human scaffolding | fixed pipeline / configurable harness / agent-authored |
-| Evaluation horizon | single evaluation / episode / competition / multi-hour research / paper |
+| Year | publication / preprint year |
+| **AI artifact improved** | data / feature / hyperparameter / architecture / optimizer / objective / algorithm / model / prompt / workflow / harness / evaluator / improver |
+| Search representation | vector / architecture graph / program / natural language / repository / executable agent state |
+| Proposal mechanism | BO / RL / gradient / evolution / LLM / multi-agent / learned policy |
+| Feedback | validation score / runtime / execution / verifier / judge / experiment |
+| Persistence | none / archive / memory / weights / source-code change |
+| Adaptation level | per-task / cross-task / continual / self-modifying / meta-evolving |
+| Loop closure | human-in-loop / bounded autonomous / persistent self-improvement / recursive improvement |
+| Human scaffolding | fixed pipeline / configurable harness / agent-authored / self-authored improver |
+| Evaluation horizon | single eval / episode / competition / multi-hour training / research project |
 | Reproducibility | code / data / traces / seeds / complete artifacts |
 
-This coding scheme can later become the central quantitative table/figure of the survey.
+This coding scheme should make it easier to construct the review's central taxonomy and the chronological trend figure without conflating **application domain** (MLE, research, coding) with **AI4AI mechanism**.
