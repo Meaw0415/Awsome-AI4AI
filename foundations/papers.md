@@ -391,3 +391,50 @@ To support a future quantitative table/figure, code every paper along mechanism-
 | Reproducibility | code / data / traces / seeds / complete artifacts |
 
 This coding scheme should make it easier to construct the review's central taxonomy and the chronological trend figure without conflating **application domain** (MLE, research, coding) with **AI4AI mechanism**.
+
+---
+
+# 12. Additional core AI4AI references surfaced by Wu et al. (2026)
+
+The following papers were added after cross-checking the reference map of *AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems* (Wu et al., 2026). Existing entries above are intentionally preserved; this section only records previously missing works that directly improve an AI artifact, AI-development process, or the improver itself.
+
+## Data, weights & model self-improvement
+
+- **2022** — *STaR: Bootstrapping Reasoning With Reasoning* — successful model-generated rationales become supervision for subsequent training. https://arxiv.org/abs/2203.14465
+- **2024** — ★ *SPIN: Self-Play Fine-Tuning Converts Weak Language Models to Strong Language Models* — iterative self-play produces training data for improving the model. https://proceedings.mlr.press/v235/chen24j.html
+- **2024** — *Self-Rewarding Language Models* — the model generates instructions and preference judgments used to improve later versions. https://arxiv.org/abs/2401.10020
+- **2025** — ★ *DataEnvGym: Data Generation Agents in Teacher Environments with Student Feedback* — closes a teacher–student loop in which data generation adapts to student-model feedback. https://openreview.net/forum?id=PQHRWzQ5M7
+- **2025** — *Self-Adapting Language Models* — persistent model adaptation through model-generated learning signals. NeurIPS 2025.
+- **2026** — ★ *Autodata: An Agentic Data Scientist to Create High Quality Synthetic Data* — iteratively revises a data generator using solver comparisons and held-out utility. https://arxiv.org/abs/2606.25996
+
+## Automated AI research & AI infrastructure
+
+- **2025** — *AgentRxiv: Towards Collaborative Autonomous Research* — multi-agent research production with persistent research artifacts. https://arxiv.org/abs/2503.18102
+- **2026** — ★ *ASI-Evolve: AI Accelerates AI* — a unified AI4AI system spanning data, model design, and learning-algorithm improvement. https://arxiv.org/abs/2603.29640
+- **2026** — ★ *AutoSOTA: An End-to-End Automated Research System for State-of-the-Art AI Model Discovery* — paper-to-repository research automation and model optimization across executable AI studies. https://arxiv.org/abs/2604.05550
+- **2026** — *DeepScientist: Advancing Frontier-Pushing Scientific Findings Progressively* — progressive autonomous scientific discovery with executable feedback. ICLR 2026.
+- **2026** — *KernelEvolve: Scaling Agentic Kernel Coding for Heterogeneous AI Accelerators at Meta* — agentic optimization of low-level AI-computing infrastructure under executable verification. ISCA 2026.
+- **2026** — ★ *The Meta-Agent Challenge: Are Current Agents Capable of Autonomous Agent Development?* — evaluates whether agents can construct stronger successor agents under bounded evaluation. https://arxiv.org/abs/2606.04455
+- **2026** — *How Far Are We from True Auto-Research?* — analyzes the gap between research artifact generation and genuinely autonomous research. https://arxiv.org/abs/2605.19156
+
+## Harness self-improvement & meta-evolution
+
+- **2007** — ★ *Gödel Machines: Fully Self-Referential Optimal Universal Self-Improvers* — foundational formal framing of a system that can rewrite its own improvement procedure. https://people.idsia.ch/~juergen/goedelmachine.html
+- **2024** — ★ *Self-Taught Optimizer (STOP): Recursively Self-Improving Code Generation* — an improver rewrites the code of its own improvement procedure. https://arxiv.org/abs/2310.02304
+- **2025** — ★ *Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models* — evolves the context/harness state used by future model calls. https://arxiv.org/abs/2510.04618
+- **2026** — ★ *HarnessX: A Composable, Adaptive, and Evolvable Agent Harness Foundry* — represents harnesses as composable settings exposed to automated search. https://arxiv.org/abs/2606.14249
+- **2026** — ★ *Recursive Harness Self-Improvement* — updates an editable harness specification from pairwise feedback over revision history. https://arxiv.org/abs/2607.15524
+- **2026** — ★ *Bilevel Autoresearch: Meta-Autoresearching Itself* — an outer research loop inspects and modifies the search mechanisms used by an inner autoresearch loop. https://arxiv.org/abs/2603.23420
+- **2026** — ★ *MetaSkill-Evolve: Recursive Self-Improvement of LLM Agents via Two-Timescale Meta-Skill Evolution* — evolves both task-level branches and slower-timescale improvement procedures. https://arxiv.org/abs/2607.05297
+- **2026** — ★ *Escher-Loop: Mutual Evolution by Closed-Loop Self-Referential Optimization* — jointly optimizes the proposer and the target in a self-referential loop. https://arxiv.org/abs/2604.23472
+
+## Evaluation of persistent and compounding improvement
+
+- **2026** — *Beyond Pass@1: A Reliability Science Framework for Long-Horizon LLM Agents* — motivates repeated-trial reliability rather than isolated successful runs. https://arxiv.org/abs/2603.29231
+- **2026** — *Towards a Science of AI Agent Reliability* — formalizes reliability concerns for long-horizon agent systems and integrated evaluation. https://arxiv.org/abs/2602.16666
+- **2026** — *Do Agent Optimizers Compound? A Continual-Learning Evaluation on Terminal-Bench 2.0* — directly tests whether improvements from agent optimizers compose across continued adaptation. https://arxiv.org/abs/2607.14004
+- **2026** — *Rethinking the Evaluation of Harness Evolution for Agents* — studies transfer, evaluation protocol, and attribution issues in harness evolution. https://arxiv.org/abs/2607.12227
+
+## Survey anchor
+
+- **2026** — ★ *AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems* — useful complementary survey centered on stage ownership, signal grounding, retention/transfer evidence, the composition gap, and model–harness co-evolution. https://www.preprints.org/manuscript/202608.2108
