@@ -50,27 +50,31 @@ Relevant surveys are spread across evolutionary computation, genetic programming
 - **Autonomous Research Agents: A Survey of AI Scientists and the Verification Gap** (2026) — focuses on AI-scientist systems and the gap between producing research artifacts and verifying scientific claims. https://arxiv.org/abs/2608.05179
 - Surveys on **LLM agents for scientific discovery**, **AI for Science**, and **scientific agents** should be tracked here even when their scope includes domains outside AI research, because they provide lifecycle and autonomy taxonomies.
 
-## 8. Self-Improving / Evolutionary Agents
+## 8. Self-Improving / Evolutionary Agents & Harnesses
 
-This subfield is emerging rapidly and currently has fewer mature surveys. Relevant adjacent literatures include:
+This subfield is emerging rapidly and now has enough dedicated reviews to treat it separately from generic LLM-agent surveys.
 
-- self-refining / reflective LLM agents;
-- open-ended learning;
-- quality-diversity and evolutionary computation;
-- population-based training;
-- automated curriculum generation;
-- meta-learning and learned optimizers;
-- self-referential / self-modifying agent systems;
-- world models for planning;
-- process supervision and trajectory-level learning.
+- **A Survey of Self-Evolving Agents: What, When, How, and Where to Evolve on the Path to Artificial Super Intelligence** (2026, TMLR). https://arxiv.org/abs/2507.21046
+- **Self-Improving Agents in the Era of Experience: A Survey of Self- to Meta-Evolution** (2026). https://openreview.net/forum?id=IUltZSgLMm
+- **Self-Improvements in Modern Agentic Systems: A Survey** (2026). https://arxiv.org/abs/2607.13104
+- **Recursive Self-Improvement in AI: From Bounded Self-Refinement to Autonomous Research Loops** (2026). https://arxiv.org/abs/2607.07663
+- **Automated Design of Agentic Systems: A Survey of Algorithms for Searching, Optimizing, and Evolving LLM Agents, Workflows, and Prompts** (2026). https://www.preprints.org/manuscript/202606.0238
+- **Code as Agent Harness** (2026) — surveys the emerging view that executable code, tools, context, memory, control flow, and verification jointly form an agent harness rather than being isolated prompting tricks. https://arxiv.org/abs/2605.18747
 
-A key opportunity for our survey is to connect these traditions to **AI R&D automation**, rather than reviewing them as generic agent techniques.
+Relevant adjacent traditions remain self-refinement, open-ended learning, population-based training, automated curriculum generation, meta-learning, learned optimizers, and process supervision. For our review, they matter when they illuminate **what component of the AI-improvement process becomes optimizable**.
 
-## 9. Benchmark Surveys
+## 9. AI4AI-specific survey anchor
+
+- **AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems** (2026) — companion survey focused on benchmarks, harness design, model-side interventions, closure, reliable horizon, retention, and transfer. https://www.preprints.org/manuscript/202608.2108/v1
+  - DOI: `10.20944/preprints202608.2108.v1`.
+  - Our scope is deliberately broader historically: we trace AI4AI from algorithm selection/HPO → AutoML → NAS → learned optimizers/meta-learning → program/algorithm search → agentic AI development → harness/improver evolution.
+
+## 10. Benchmark Surveys & Evaluation Methodology
 
 - **Neural Architecture Search Benchmarks: Insights and Survey** (2023) — benchmark taxonomy for NAS. https://doi.org/10.1109/ACCESS.2023.3253818
+- **Do Agent Benchmarks Measure Capability? Protocol Validity in the Age of Agentic AI** (2026) — useful methodology paper for separating benchmark score from protocol validity in long-horizon agents. https://arxiv.org/abs/2607.22368
 - The AutoML literature contains benchmark methodology and framework-comparison work such as AMLB.
-- Modern AI-R&D benchmark papers (MLAgentBench, MLE-bench, RE-Bench, PaperBench) are themselves currently more informative than any single benchmark survey because this area is very recent.
+- Modern AI-R&D benchmark papers (MLAgentBench, MLE-bench, RE-Bench, PaperBench, AI4AI-Bench) are currently more informative than any single benchmark survey because this area is very recent.
 
 ## Survey gap we can target
 
@@ -81,6 +85,7 @@ Existing reviews usually stop at one of these boundaries:
 3. **LLM-agent surveys** are broad but not specific to AI R&D.
 4. **AI-for-Science surveys** focus on scientific domains rather than AI improving AI.
 5. **AI-scientist surveys** emphasize end-to-end scientific workflows but generally do not trace the methodological lineage back through AutoML, meta-learning, program search, and learned optimization.
+6. **Self-evolving/harness surveys** focus on the newest runtime-agent layer but generally do not connect it back to the decades-long AutoML/NAS/meta-learning lineage.
 
 Our potential niche is therefore:
 
