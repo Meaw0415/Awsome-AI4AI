@@ -2,7 +2,7 @@
 
 Master table focused on **MLE agents, AI research agents / AI scientists, and transferable agent-optimization methods**. `Core` means directly AI4AI/MLE/research automation; `Adjacent` means an optimization mechanism likely transferable to these systems.
 
-**160 unique papers** — 2024: 58, 2025: 85, 2026: 17.
+**185 unique papers** — 2024: 58, 2025: 85, 2026: 42.
 
 | # | Year | Paper | Track | Relevance |
 |---:|:---:|---|---|:---:|
@@ -166,6 +166,31 @@ Master table focused on **MLE agents, AI research agents / AI scientists, and tr
 | 158 | 2024 | [Multi-modal Agent Tuning: Building a VLM-Driven Agent for Efficient Tool Usage](https://arxiv.org/abs/2412.15606) | Tool Optimization | Adjacent |
 | 159 | 2024 | [Offline Training of Language Model Agents with Functions as Learnable Weights](https://arxiv.org/abs/2402.11359) | Tool Optimization | Adjacent |
 | 160 | 2024 | [Tool-Planner: Task Planning with Clusters across Multiple Tools](https://arxiv.org/abs/2406.03807) | Tool Optimization | Adjacent |
+| 161 | 2026 | [Prime Agent: A Self-Improving RLM Harness](https://arxiv.org/abs/2608.23552) | Harness / Self-Evolution | Adjacent |
+| 162 | 2026 | [AI4AI-Bench: Benchmarking LLM Agents in Algorithmic Design for Recursive Self-Improvement](https://arxiv.org/abs/2608.20318) | Benchmark / RSI | Core |
+| 163 | 2026 | [Agent Lightning v1.0: Towards Harnessed Agentic RL](https://arxiv.org/abs/2608.17528) | Harness + Model Training | Adjacent |
+| 164 | 2026 | [Evo-Harness: Context-to-Harness Skill Compilation for Self-Evolving Agents](https://arxiv.org/abs/2608.15071) | Harness / Skill Evolution | Adjacent |
+| 165 | 2026 | [Practice Makes Unsafe: Skill Misevolution in Self-Improving LLM Agents](https://arxiv.org/abs/2608.12851) | Safety / Skill Evolution | Adjacent |
+| 166 | 2026 | [AI4AI at Test-Time: Strong-to-Weak Capability Transfer via Harnesses](https://arxiv.org/abs/2608.12307) | Harness / Capability Transfer | Core |
+| 167 | 2026 | [Self-Evolving Embodied Agents via Skill-Harness Evolution](https://arxiv.org/abs/2608.11350) | Skill + Harness Evolution | Adjacent |
+| 168 | 2026 | [Self-Play Meets Skill Evolution: Self-Evolving Search Agents that Pose, Solve, and Remember](https://arxiv.org/abs/2607.29468) | Skill / Curriculum Co-Evolution | Adjacent |
+| 169 | 2026 | [Who Grades the Grader? Co-Evolving Evaluation Metrics and Skills for Self-Improving LLM Agents](https://arxiv.org/abs/2607.12790) | Evaluator Co-Evolution | Adjacent |
+| 170 | 2026 | [SkillOpt-Lite: Better and Faster Agent Self-evolution via One Line of Vibe](https://arxiv.org/abs/2607.03451) | Skill Optimization | Adjacent |
+| 171 | 2026 | [The Past Is Prologue: A Plug-in Controller for Selective Updates in Sequentially Evolving LLM Memory](https://arxiv.org/abs/2606.31121) | Memory Evolution | Adjacent |
+| 172 | 2026 | [EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management](https://arxiv.org/abs/2606.03841) | Data Science / Self-Evolution | Core |
+| 173 | 2026 | [MUSE-Autoskill: Self-Evolving Agents via Skill Creation, Memory, Management, and Evaluation](https://arxiv.org/abs/2605.27366) | Skill Lifecycle | Adjacent |
+| 174 | 2026 | [SkillOpt: Executive Strategy for Self-Evolving Agent Skills](https://arxiv.org/abs/2605.23904) | Skill Optimization | Adjacent |
+| 175 | 2026 | [You Live More Than Once: Towards Hierarchical Skill Meta-Evolving](https://arxiv.org/abs/2605.28390) | Meta-Evolution / Skills | Adjacent |
+| 176 | 2026 | [Adapting the Interface, Not the Model: Runtime Harness Adaptation for Deterministic LLM Agents](https://arxiv.org/abs/2605.22166) | Harness Adaptation | Adjacent |
+| 177 | 2026 | [Do Self-Evolving Agents Forget? Capability Degradation and Preservation in Lifelong LLM Agent Adaptation](https://arxiv.org/abs/2605.09315) | Retention / Stability | Adjacent |
+| 178 | 2026 | [SkillOS: Learning Skill Curation for Self-Evolving Agents](https://arxiv.org/abs/2605.06614) | Skill Curation | Adjacent |
+| 179 | 2026 | [TREX: Automating LLM Fine-tuning via Agent-Driven Tree-based Exploration](https://arxiv.org/abs/2604.14116) | Model Training / Fine-Tuning | Core |
+| 180 | 2026 | [Memento-Skills: Let Agents Design Agents](https://arxiv.org/abs/2603.18743) | Agent Design / Skills | Adjacent |
+| 181 | 2026 | [SkillRL: Evolving Agents via Recursive Skill-Augmented Reinforcement Learning](https://arxiv.org/abs/2602.08234) | Skill + RL | Adjacent |
+| 182 | 2026 | [MemSkill: Learning and Evolving Memory Skills for Self-Evolving Agents](https://arxiv.org/abs/2602.02474) | Memory / Skill Evolution | Adjacent |
+| 183 | 2026 | [Meta Context Engineering via Agentic Skill Evolution](https://arxiv.org/abs/2601.21557) | Meta-Optimization / Context | Adjacent |
+| 184 | 2026 | [Learning to Ideate for Machine Learning Engineering Agents](https://arxiv.org/abs/2601.17596) | MLE / Ideation | Core |
+| 185 | 2026 | [Towards Execution-Grounded Automated AI Research](https://arxiv.org/abs/2601.14525) | AI Research / Algorithm Search | Core |
 
 ## How to read this table
 
@@ -177,4 +202,4 @@ Master table focused on **MLE agents, AI research agents / AI scientists, and tr
 
 ## Curation notes
 
-Cross-checked against primary paper pages, the official MLE-bench ecosystem, Awesome Agentic ML, and Awesome Self-Evolving Agents. The table intentionally separates directly relevant AI4AI work from adjacent agent-optimization methods so the survey scope does not collapse into a generic LLM-agent bibliography.
+Cross-checked against primary paper pages, the official MLE-bench ecosystem, Awesome Agentic ML, Awesome Self-Evolving Agents, and the September 2026 missing-paper audit. The table intentionally separates directly relevant AI4AI work from adjacent agent-optimization methods so the survey scope does not collapse into a generic LLM-agent bibliography.
