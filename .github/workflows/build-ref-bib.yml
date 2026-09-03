@@ -1,0 +1,43 @@
+name: Verify and build complete ref.bib
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install metadata parsers
+        run: pip install requests beautifulsoup4
+      - name: Build verified bibliography
+        run: python .github/scripts/build_ref_bib.py
+      - name: Sanity check bibliography
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          p = Path('ref.bib')
+          text = p.read_text(encoding='utf-8')
+          entries = re.findall(r'^@\w+\{([^,]+),', text, re.M)
+          assert entries, 'No BibTeX entries generated'
+          assert len(entries) == len(set(entries)), 'Duplicate BibTeX keys found'
+          blocks = re.split(r'(?=^@\w+\{)', text, flags=re.M)
+          bad = [b.splitlines()[0] for b in blocks if b.startswith('@') and ('  title = {' not in b or '  author = {' not in b)]
+          assert not bad, f'Entries missing title/author: {bad[:10]}'
+          print(f'Validated {len(entries)} BibTeX entries')
+          PY
+      - name: Upload ref.bib
+        uses: actions/upload-artifact@v4
+        with:
+          name: verified-ref-bib
+          path: ref.bib
+          if-no-files-found: error
