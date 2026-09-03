@@ -52,6 +52,7 @@ Harness work often evaluates on general coding/agent benchmarks rather than a si
 - **Self-Harness** — self-modification of an agent harness with regression validation.
 - **Retrospective Harness Optimization (RHO)** — self-supervised harness improvement from past trajectories.
 - **ADAS / EvoAgentX / SwarmAgentic** — automatic generation or optimization of agentic systems/workflows.
+- **[SkillMisevo-Bench / Practice Makes Unsafe](https://arxiv.org/abs/2608.12851)** — tests whether persistent skill evolution propagates unsafe procedures into later clean sessions and separates authoring, retrieval, and execution failures.
 
 This deserves separate tracking because the **optimization object is the AI agent system itself**, not merely the task solution.
 
@@ -59,10 +60,21 @@ This deserves separate tracking because the **optimization object is the AI agen
 
 | Benchmark / Stack | Year | What it tests |
 |---|:---:|---|
+| [AI4AI-Bench](https://arxiv.org/abs/2608.20318) | 2026 | whether agents can redesign training algorithms across frozen AI research repositories under a fixed compute budget |
 | [OpenMLE / Frontis-MA1](https://arxiv.org/abs/2607.28568) | 2026 | execution-grounded operator learning + long-horizon evolutionary MLE search, with transfer to held-out AI tasks |
 | [RSIBench-Data](https://arxiv.org/abs/2607.25886) | 2026 | recursive-improvement-oriented data-agent evaluation |
+| [Do Self-Evolving Agents Forget?](https://arxiv.org/abs/2605.09315) | 2026 | retention and capability erosion across workflow, skill, model, and memory evolution |
 
-The central evaluation question here is no longer only **“did the final artifact improve?”** but also **“did the system become a better improver?”**
+The central evaluation question here is no longer only **“did the final artifact improve?”** but also **“did the system become a better improver?”** and **“did it preserve what it had already learned?”**
+
+## 7. Benchmark validity & evaluation methodology
+
+A growing issue is whether agent benchmarks actually measure the claimed capability rather than artifacts of the protocol, harness, evaluator, or budget.
+
+| Paper | Year | Why it matters |
+|---|:---:|---|
+| [Do Agent Benchmarks Measure Capability? Protocol Validity in the Age of Agentic AI](https://arxiv.org/abs/2607.22368) | 2026 | separates measured score from protocol validity and highlights how evaluation design can change capability conclusions |
+| [Who Grades the Grader? Co-Evolving Evaluation Metrics and Skills for Self-Improving LLM Agents](https://arxiv.org/abs/2607.12790) | 2026 | makes the evaluator itself an evolving object and therefore forces independent validation of a learned/evolved metric |
 
 ---
 
@@ -95,6 +107,8 @@ Final score alone is increasingly insufficient. Useful dimensions include:
 - **iteration efficiency** — improvement per unit of compute, time, or number of executions;
 - **transfer** — do strategies learned on one task/model help unseen ones?
 - **persistence** — are gains stored in reusable knowledge, weights, or harness changes?
+- **retention** — do later improvements preserve capabilities acquired earlier?
+- **evaluator validity** — if the judge/metric evolves, is it independently validated rather than self-certifying?
 - **robustness** — does the method avoid overfitting a benchmark/task?
 - **loop closure** — how much of propose → execute → evaluate → revise is agent-owned?
 - **self-improvement** — does an improved agent/harness become better at future AI-improvement tasks?
